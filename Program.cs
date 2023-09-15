@@ -36,7 +36,8 @@ metal.positions.Add(blockers);
 metal.positions.Add(blitzers);
 metal.positions.Add(throwers);
 
-
+//A Blood/Dungeon Bowl team is comprised of players. For the sake of this program, and for the sake of not getting sued, players consist of two values.
+//A name, and a price.
 public class Player { 
     string name;
     BigInteger cost;
@@ -56,6 +57,8 @@ public class Player {
         return outputstr;
     }
 }
+//Each position contains a list of players, a maximum number of players in that position, and, for the sake of avoiding int to BigInteger conversion, a count of the number of options.
+//This is not as expandable as I'd like, but I think it's a better option right now.
 public class Position
 {
     string name;
@@ -70,7 +73,7 @@ public class Position
     public List<Player> players;
 
 }
-
+//Each team has a name, for the blood bowl race or college of magic it represents, and a list of positions.
 public class Team
 { string name;
   public List<Position> positions;
@@ -82,19 +85,25 @@ public class Team
 
 public class roster
 {
+    //player count must be within 11-16, inclusive
     int playerCount;
+    //BigInteger was chosen possibly incorrectly, but it can be pared down to int later. This must not exceed one million.
     BigInteger value;
+    //up to eight rerolls. Each has a value between 50000 and 70000. All are 50k in Dungeon Bowl, which is where the more interesting problems exist.
     int rerolls;
+    //A roster is a list of players. At this point, we're looking at fresh, completely unremarkable nameless unnumbered rookies.
     List<Player> players;
+    //checkIfValid determines if a roster is acceptable under the above constraints.
+    //To reiterate: 11-16 players, value <= 1 million gold pieces.
+
     bool checkIfValid()
     {
         //commented out value prevents team value scumming, albeit imperfectly
-        //we love our inducement abuse, don't we, folks?
         if (this.playerCount > 16 || this.playerCount < 11 || this.value > 1000000 /*|| this.value <= 950000*/)
         {
             return false;
         }
-        else return true;
+        return true;
     }
     string toString()
     {
@@ -105,6 +114,7 @@ public class roster
 
 public static class TestFunctions
 {
+    //This sums up MultiChoose calls, with the same number of options, but starting from zero draws and ending at maxValue.
     public static BigInteger MultiChooseSum (BigInteger maxValue, BigInteger options)
     {
         BigInteger result = 0;
@@ -114,6 +124,7 @@ public static class TestFunctions
         }
         return result;
     }
+    //I rolled my own factorial function, expect this to be replaced with something faster.
     public static BigInteger LazyFactorial(BigInteger target)
     {
         BigInteger result = 1;
@@ -123,6 +134,9 @@ public static class TestFunctions
         }
         return result;
     }
+    //Implementation of this: https://www.calculatorsoup.com/calculators/discretemathematics/combinationsreplacement.php
+    //We choose $sample discrete items from $objects potential options, replacing after each draw.
+    //CRITICALLY IMPORTANT: order does not matter. 
     public static BigInteger MultiChoose(BigInteger sample, BigInteger objects)
     {
         BigInteger numerator = LazyFactorial(sample + objects - 1);
