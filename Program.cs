@@ -37,41 +37,103 @@ static void defineTestTeam()
     metal.positions.Add(blockers);
     metal.positions.Add(blitzers);
     metal.positions.Add(throwers);
+    //getCombinationsFromTestTeam(metal);
+    getRostersFromTestTeam(metal);
+}
+static BigInteger getCombinationsFromTestTeam(Team testTeam)
+{
+    BigInteger combinations = 1;
+    foreach (Position p in testTeam.positions)
+    {
+        BigInteger thisMany = TestFunctions.MultiChooseSum(p.maximumPlayers, p.numberOfPlayerTypes);
+        Console.WriteLine($"{p.name}: {thisMany}");
+        combinations *= thisMany;
+    }
+    Console.WriteLine($"Total Player Combinations: {combinations.ToString()}");
+    combinations *= 9;
+    Console.WriteLine($"Total Player Combinations WITH rerolls: {combinations.ToString()}");
+    return combinations;
+}
+static void getRostersFromTestTeam(Team testTeam)
+{
+    foreach (Position pos in testTeam.positions)
+    {
+        Console.WriteLine($"Combinations for {pos.name}:");
+        for (int i = 0; i <= pos.maximumPlayers; i++)
+        {
+            List<List<Player>> combinations = GenerateMultichooseCombinations(pos.players, i);
+            foreach (var combination in combinations)
+            {
+                // Create a roster with the combination of players
+                Roster roster = new Roster(testTeam);
+                foreach (Player player in combination)
+                {
+                    roster.AddPlayer(player);
+                }
+                Console.WriteLine($"Roster Value: {roster.value.ToString()}");
+                Console.WriteLine(roster.GetRoster());
+            }
+        }
+    }
 }
 
+static List<List<Player>> GenerateMultichooseCombinations(List<Player> players, int r)
+{
+    List<List<Player>> combinations = new List<List<Player>>();
+    List<Player> currentCombination = new List<Player>();
+
+    GenerateCombinationsHelper(players, r, 0, currentCombination, combinations);
+
+    return combinations;
+}
+
+static void GenerateCombinationsHelper(List<Player> players, int r, int startIndex, List<Player> currentCombination, List<List<Player>> combinations)
+{
+    if (r == 0)
+    {
+        combinations.Add(new List<Player>(currentCombination));
+        return;
+    }
+
+    for (int i = startIndex; i < players.Count; i++)
+    {
+        currentCombination.Add(players[i]);
+        GenerateCombinationsHelper(players, r - 1, i, currentCombination, combinations);
+        currentCombination.RemoveAt(currentCombination.Count - 1); // Backtrack
+    }
+}
+
+defineTestTeam();
 //A Blood/Dungeon Bowl team is comprised of players. For the sake of this program, players consist of two values: name and price.
 public class Player { 
-    string name;
-    BigInteger cost;
+    public string name;
+    public BigInteger cost;
     public Player(string playerName, BigInteger playerCost)
     {
         name = playerName;
         cost = playerCost;
     }
-    string getName()
+
+    public string Summary()
     {
-        string outputstr = $"{name}";
-        return outputstr;
-    }
-    string summary()
-    {
-        string outputstr = $"{name}: {cost}";
-        return outputstr;
+        string summ = $"{name}: {cost}";
+        return summ;
     }
 }
 //Each position contains a list of players, a maximum number of players in that position, and, for the sake of avoiding int to BigInteger conversion, a count of the number of options.
 //This is not as expandable as I'd like, but I think it's a better option right now.
 public class Position
 {
-    string name;
+    public string name;
     public Position(string positionName, BigInteger maxPlayers, BigInteger numTypes)
     {
         name=positionName;
         maximumPlayers=maxPlayers;
         numberOfPlayerTypes=numTypes;
+        players = new List<Player>();
     }
-    BigInteger maximumPlayers;
-    BigInteger numberOfPlayerTypes;
+    public BigInteger maximumPlayers;
+    public BigInteger numberOfPlayerTypes;
     public List<Player> players;
 
 }
@@ -84,28 +146,37 @@ public class Team
     {
         name=collegeName;
         rerollValue= rerollCost;
+        positions = new List<Position>();
     }
 }
 
 //A blood bowl league begins with every player filling out their starting roster.
 //Constraints: 11-16 players, 1 million gold starting budget.
-public class roster
+public class Roster
 {
     //Teams in Blood/Dungeon Bowl are chosen from race or wizard college lists, depending on the game.
     //For the purposes of this program, we list it at the top of the roster for clarity's sake.
     //All other calculations with it have already been made.
     Team raceOrCollege;
     //player count must be within 11-16, inclusive
-    int playerCount;
+    public int playerCount;
     //BigInteger was chosen possibly incorrectly, but it can possibly be pared down to int later. This must not exceed one million.
-    BigInteger value;
+    public BigInteger value;
     //zero to eight rerolls. Each has a value between 50000 and 70000.
-    int rerolls;
+    public int rerolls;
     //A roster is a list of players. At this point, we're looking at fresh, completely unremarkable nameless unnumbered rookies.
-    List<Player> players;
+    public List<Player> players;
+    public void AddPlayer(Player p)
+    {
+        players.Add(p);
+        value += p.cost;
+        playerCount++;
+    }
     //checkIfValid determines if a roster is acceptable under the above constraints.
     //To reiterate: 11-16 players, value <= 1 million gold pieces.
-
+    public Roster(Team raceOrCollege) {
+        players = new List<Player>();
+    }
     bool checkIfValid()
     {
         //commented out value prevents team value scumming, albeit imperfectly
@@ -115,9 +186,23 @@ public class roster
         }
         return true;
     }
-    string toString()
+
+    public void ShowVerifiedRoster()
     {
-        string outputstr = $"Players: {playerCount} \n ";
+        if (checkIfValid()){
+            Console.WriteLine(value.ToString());
+            Console.WriteLine(GetRoster());
+        }
+    }
+
+    public string GetRoster()
+    {
+        string outputstr = "";
+        foreach (Player p in players)
+        {
+            outputstr += p.Summary();
+            outputstr += "\n";
+        }
         return outputstr;
     }
 }
