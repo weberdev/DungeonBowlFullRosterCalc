@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-Console.WriteLine("Hello, sports fans!");
+Console.WriteLine("Greetings, sports fans!");
 //testing information for College of Metal Team
 static void defineTestTeam()
 {
@@ -38,7 +38,11 @@ static void defineTestTeam()
     metal.positions.Add(blitzers);
     metal.positions.Add(throwers);
     //getCombinationsFromTestTeam(metal);
-    getRostersFromTestTeam(metal);
+    //getRostersFromTestTeam(metal);
+    //getCartesianRostersFromTestTeam(metal);
+    List<List<List<Player>>> allCombinations = FullCombinations(metal);
+    EveryCombination(allCombinations);
+    
 }
 static BigInteger getCombinationsFromTestTeam(Team testTeam)
 {
@@ -77,6 +81,82 @@ static void getRostersFromTestTeam(Team testTeam)
     }
 }
 
+static List<List<List<Player>>> FullCombinations(Team testTeam)
+{
+    List<List<List<Player>>> comblist = new List<List<List<Player>>>();
+    foreach (Position pos in testTeam.positions)
+    {
+        for (int i = 0; i <= pos.maximumPlayers; i++)
+        {
+            List<List<Player>> combinations = GenerateMultichooseCombinations(pos.players, i);
+            comblist.Add(combinations); // Use AddRange to merge lists
+        }
+    }
+    return comblist;
+}
+
+static void EveryCombination(List<List<List<Player>>> lists)
+{
+    Console.WriteLine("Beginning EVERYCOMBINATION");
+    int[] indices = new int[lists.Count];
+    int[] lengths = new int[lists.Count];
+    int totalCombinations = 1;
+
+    // Initialize lengths and calculate total combinations
+    for (int i = 0; i < lists.Count; i++)
+    {
+        lengths[i] = lists[i].Count;
+        totalCombinations *= lengths[i];
+    }
+
+    // Nested loops to iterate through combinations
+    for (int combinationIndex = 0; combinationIndex < totalCombinations; combinationIndex++)
+    {
+        // Perform some operation with elements from each list
+        List<Player> currentCombination = new List<Player>();
+
+        for (int listIndex = 0; listIndex < lists.Count; listIndex++)
+        {
+            int elementIndex = indices[listIndex];
+            List<Player> currentList = lists[listIndex][elementIndex];
+
+            // Add the element from the current list to the combination
+            currentCombination.AddRange(currentList);
+
+            // Increment the index for the current list
+            indices[listIndex]++;
+
+            // Check if the index exceeds the length of the current list
+            if (indices[listIndex] >= lengths[listIndex])
+            {
+                indices[listIndex] = 0; // Reset the index and move to the next list
+            }
+            else
+            {
+                break; // Move to the next combination
+            }
+        }
+
+        // Perform the desired operation with the current combination
+        // (You can add your operation logic here)
+        Roster testRost = new Roster();
+        foreach (Player plyr in currentCombination)
+        {
+            testRost.AddPlayer(plyr);
+        }
+        testRost.ShowVerifiedRoster();
+    }
+}
+
+
+
+/*static void EveryCombination(List<List<List<Player>>> lists)
+{
+    int numPositionals = lists.Count;
+    int[] indices = new int[numPositionals]; 
+
+}*/
+
 static List<List<Player>> GenerateMultichooseCombinations(List<Player> players, int r)
 {
     List<List<Player>> combinations = new List<List<Player>>();
@@ -107,8 +187,8 @@ defineTestTeam();
 //A Blood/Dungeon Bowl team is comprised of players. For the sake of this program, players consist of two values: name and price.
 public class Player { 
     public string name;
-    public BigInteger cost;
-    public Player(string playerName, BigInteger playerCost)
+    public int cost;
+    public Player(string playerName, int playerCost)
     {
         name = playerName;
         cost = playerCost;
@@ -125,24 +205,24 @@ public class Player {
 public class Position
 {
     public string name;
-    public Position(string positionName, BigInteger maxPlayers, BigInteger numTypes)
+    public Position(string positionName, int maxPlayers, int numTypes)
     {
         name=positionName;
         maximumPlayers=maxPlayers;
         numberOfPlayerTypes=numTypes;
         players = new List<Player>();
     }
-    public BigInteger maximumPlayers;
-    public BigInteger numberOfPlayerTypes;
+    public int maximumPlayers;
+    public int numberOfPlayerTypes;
     public List<Player> players;
 
 }
 //Each team has a name, a cost for rerolls, and a list of positions.
 public class Team
 { string name;
-    BigInteger rerollValue;
+    public int rerollValue;
   public List<Position> positions;
-    public Team (string collegeName, BigInteger rerollCost)
+    public Team (string collegeName, int rerollCost)
     {
         name=collegeName;
         rerollValue= rerollCost;
@@ -161,9 +241,15 @@ public class Roster
     //player count must be within 11-16, inclusive
     public int playerCount;
     //BigInteger was chosen possibly incorrectly, but it can possibly be pared down to int later. This must not exceed one million.
-    public BigInteger value;
+    public int value;
     //zero to eight rerolls. Each has a value between 50000 and 70000.
     public int rerolls;
+    public Roster()
+    {
+        players = new List<Player>();
+        playerCount = 0;
+        value = 0;
+    }
     //A roster is a list of players. At this point, we're looking at fresh, completely unremarkable nameless unnumbered rookies.
     public List<Player> players;
     public void AddPlayer(Player p)
@@ -177,7 +263,13 @@ public class Roster
     public Roster(Team raceOrCollege) {
         players = new List<Player>();
     }
-    bool checkIfValid()
+
+    public Roster(Roster clonedRoster)
+    {
+        players = new List<Player>();
+        Roster clone = clonedRoster;
+    }
+    public bool checkIfValid()
     {
         //commented out value prevents team value scumming, albeit imperfectly
         if (this.playerCount > 16 || this.playerCount < 11 || this.value > 1000000 /*|| this.value <= 950000*/)
@@ -190,8 +282,17 @@ public class Roster
     public void ShowVerifiedRoster()
     {
         if (checkIfValid()){
-            Console.WriteLine(value.ToString());
+            
             Console.WriteLine(GetRoster());
+            Console.WriteLine(value.ToString());
+            int potentialRerolls = 1000000 - value;
+            double potrer = potentialRerolls / raceOrCollege.rerollValue;
+            potentialRerolls = (int)Math.Floor(potrer);
+            Console.WriteLine($"Up to {potentialRerolls} rerolls.");   
+        }
+        else
+        {
+            Console.WriteLine($"Value: {value}. Players: {playerCount}");
         }
     }
 
@@ -204,6 +305,12 @@ public class Roster
             outputstr += "\n";
         }
         return outputstr;
+    }
+    public void MergeRosters(Roster addedRoster) {
+        foreach (Player plyr in addedRoster.players)
+        {
+            this.AddPlayer(plyr);
+        }
     }
 }
 
