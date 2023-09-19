@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Numerics;
-
+BigInteger invalidRosterCount = 0;
 Console.WriteLine("Greetings, sports fans!");
 //testing information for College of Metal Team
+defineTestTeam();
+
 static void defineTestTeam()
 {
+
+    Console.WriteLine("Filling college of metal team roster.");
     Player orcLino = new Player("Orc Lineman", 50000);
     Player humanLino = new Player("Human Lineman", 50000);
     Player goblinBruiserLino = new Player("Goblin Bruiser Lineman", 45000);
@@ -37,48 +41,9 @@ static void defineTestTeam()
     metal.positions.Add(blockers);
     metal.positions.Add(blitzers);
     metal.positions.Add(throwers);
-    //getCombinationsFromTestTeam(metal);
-    //getRostersFromTestTeam(metal);
-    //getCartesianRostersFromTestTeam(metal);
     List<List<List<Player>>> allCombinations = FullCombinations(metal);
     EveryCombination(allCombinations);
     
-}
-static BigInteger getCombinationsFromTestTeam(Team testTeam)
-{
-    BigInteger combinations = 1;
-    foreach (Position p in testTeam.positions)
-    {
-        BigInteger thisMany = TestFunctions.MultiChooseSum(p.maximumPlayers, p.numberOfPlayerTypes);
-        Console.WriteLine($"{p.name}: {thisMany}");
-        combinations *= thisMany;
-    }
-    Console.WriteLine($"Total Player Combinations: {combinations.ToString()}");
-    combinations *= 9;
-    Console.WriteLine($"Total Player Combinations WITH rerolls: {combinations.ToString()}");
-    return combinations;
-}
-static void getRostersFromTestTeam(Team testTeam)
-{
-    foreach (Position pos in testTeam.positions)
-    {
-        Console.WriteLine($"Combinations for {pos.name}:");
-        for (int i = 0; i <= pos.maximumPlayers; i++)
-        {
-            List<List<Player>> combinations = GenerateMultichooseCombinations(pos.players, i);
-            foreach (var combination in combinations)
-            {
-                // Create a roster with the combination of players
-                Roster roster = new Roster(testTeam);
-                foreach (Player player in combination)
-                {
-                    roster.AddPlayer(player);
-                }
-                Console.WriteLine($"Roster Value: {roster.value.ToString()}");
-                Console.WriteLine(roster.GetRoster());
-            }
-        }
-    }
 }
 
 static List<List<List<Player>>> FullCombinations(Team testTeam)
@@ -86,76 +51,61 @@ static List<List<List<Player>>> FullCombinations(Team testTeam)
     List<List<List<Player>>> comblist = new List<List<List<Player>>>();
     foreach (Position pos in testTeam.positions)
     {
+        Console.WriteLine($"Adding Position: {pos.name} to the list.");
+        List<List<Player>> posCombList = new List<List<Player>>();
         for (int i = 0; i <= pos.maximumPlayers; i++)
         {
             List<List<Player>> combinations = GenerateMultichooseCombinations(pos.players, i);
-            comblist.Add(combinations); // Use AddRange to merge lists
+            posCombList.AddRange(combinations);
         }
+        comblist.Add(posCombList);
     }
     return comblist;
 }
 
-static void EveryCombination(List<List<List<Player>>> lists)
+static void EveryCombination(List<List<List<Player>>> combinations)
 {
-    Console.WriteLine("Beginning EVERYCOMBINATION");
-    int[] indices = new int[lists.Count];
-    int[] lengths = new int[lists.Count];
-    int totalCombinations = 1;
+    List<List<Player>> currentCombination = new List<List<Player>>();
+    IterateCombinations(combinations, 0, currentCombination);
+}
 
-    // Initialize lengths and calculate total combinations
-    for (int i = 0; i < lists.Count; i++)
+static void IterateCombinations(List<List<List<Player>>> combinations, int positionIndex, List<List<Player>> currentCombination)
+{
+    if (positionIndex == combinations.Count)
     {
-        lengths[i] = lists[i].Count;
-        totalCombinations *= lengths[i];
+        // We have reached the end of the positions, so call ConsiderRoster
+        ConsiderRoster(currentCombination);
+        return;
     }
 
-    // Nested loops to iterate through combinations
-    for (int combinationIndex = 0; combinationIndex < totalCombinations; combinationIndex++)
+    List<List<Player>> positionOptions = combinations[positionIndex];
+
+    foreach (List<Player> option in positionOptions)
     {
-        // Perform some operation with elements from each list
-        List<Player> currentCombination = new List<Player>();
+        // Add the current position option to the current combination
+        currentCombination.Add(option);
 
-        for (int listIndex = 0; listIndex < lists.Count; listIndex++)
-        {
-            int elementIndex = indices[listIndex];
-            List<Player> currentList = lists[listIndex][elementIndex];
+        // Recursively call the function for the next position
+        IterateCombinations(combinations, positionIndex + 1, currentCombination);
 
-            // Add the element from the current list to the combination
-            currentCombination.AddRange(currentList);
-
-            // Increment the index for the current list
-            indices[listIndex]++;
-
-            // Check if the index exceeds the length of the current list
-            if (indices[listIndex] >= lengths[listIndex])
-            {
-                indices[listIndex] = 0; // Reset the index and move to the next list
-            }
-            else
-            {
-                break; // Move to the next combination
-            }
-        }
-
-        // Perform the desired operation with the current combination
-        // (You can add your operation logic here)
-        Roster testRost = new Roster();
-        foreach (Player plyr in currentCombination)
-        {
-            testRost.AddPlayer(plyr);
-        }
-        testRost.ShowVerifiedRoster();
+        // Remove the current position option to backtrack
+        currentCombination.RemoveAt(currentCombination.Count - 1);
     }
 }
 
 
-
-/*static void EveryCombination(List<List<List<Player>>> lists)
+static void ConsiderRoster(List<List<Player>> singularPositionCombination)
 {
-    int numPositionals = lists.Count;
-    int[] indices = new int[numPositionals]; 
-
-}*/
+    Roster TestRost = new Roster();
+    foreach (List<Player> posList in singularPositionCombination) {
+        foreach (Player player in posList)
+        {
+            TestRost.AddPlayer(player);
+        }
+    }
+    TestRost.ShowVerifiedRoster();
+    //Console.WriteLine(TestRost.GetRoster());
+}
 
 static List<List<Player>> GenerateMultichooseCombinations(List<Player> players, int r)
 {
@@ -183,7 +133,7 @@ static void GenerateCombinationsHelper(List<Player> players, int r, int startInd
     }
 }
 
-defineTestTeam();
+
 //A Blood/Dungeon Bowl team is comprised of players. For the sake of this program, players consist of two values: name and price.
 public class Player { 
     public string name;
@@ -249,6 +199,7 @@ public class Roster
         players = new List<Player>();
         playerCount = 0;
         value = 0;
+        raceOrCollege = new Team("Whichever", 50000);
     }
     //A roster is a list of players. At this point, we're looking at fresh, completely unremarkable nameless unnumbered rookies.
     public List<Player> players;
@@ -282,17 +233,17 @@ public class Roster
     public void ShowVerifiedRoster()
     {
         if (checkIfValid()){
-            
-            Console.WriteLine(GetRoster());
+            Console.WriteLine("Acceptable Roster:");
+            Console.Write(GetRoster());
             Console.WriteLine(value.ToString());
             int potentialRerolls = 1000000 - value;
             double potrer = potentialRerolls / raceOrCollege.rerollValue;
             potentialRerolls = (int)Math.Floor(potrer);
-            Console.WriteLine($"Up to {potentialRerolls} rerolls.");   
+            Console.WriteLine($"Up to {potentialRerolls} rerolls. \n \n");
         }
         else
         {
-            Console.WriteLine($"Value: {value}. Players: {playerCount}");
+           Console.WriteLine($"Unacceptable Roster: Value: {value}. Players: {playerCount}\n");
         }
     }
 
