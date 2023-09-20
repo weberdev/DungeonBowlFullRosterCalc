@@ -279,9 +279,9 @@ void defineDungeonBowlTeams()
     heavensSpecial.players.Add(valkyrie);
     heavens.positions.Add(heavensSpecial);
     Teams.Add(heavens);
-<<<<<<< HEAD
+
     //processTeamList(Teams);
-    handleTeam(beasts);
+    handleTeam(life);
 }
 
 void defineBloodBowlTeams()
@@ -896,26 +896,20 @@ void defineBloodBowlTeams()
 
 
 
-    //processTeamList(Teams);
+    processTeamList(Teams);
     handleTeam(darkElves);
 }
 
 void processTeamList(List<Team> teams)
 {
-    foreach (Team t in teams)
-=======
-    foreach(Team t in Teams)
->>>>>>> 657334b (Added output for all teams except College of Life (it is expected to be 3-4GB).)
+    foreach(Team t in teams)
     {
         handleTeam(t);
         Console.WriteLine("END OF TEAM\n");
     }
-<<<<<<< HEAD
     Console.WriteLine("\n\nEND OF FILE");
-=======
     Console.WriteLine("END OF FILE");
 
->>>>>>> 657334b (Added output for all teams except College of Life (it is expected to be 3-4GB).)
 }
 
 void defineTestTeam()
@@ -965,11 +959,8 @@ static BigInteger getCombinationsFromTestTeam(Team testTeam)
         Console.WriteLine($"{p.name}: {thisMany}");
         combinations *= thisMany;
     }
-<<<<<<< HEAD
-    Console.WriteLine($"Total Player Combinations: {combinations.ToString()}\n");
-=======
+
     Console.WriteLine($"Total Player Combinations: {combinations.ToString()}");
->>>>>>> 657334b (Added output for all teams except College of Life (it is expected to be 3-4GB).)
     return combinations;
 }
 static void getRostersFromTestTeam(Team testTeam)
@@ -1246,13 +1237,10 @@ public class Roster
     }
     public bool checkIfValid()
     {
-<<<<<<< HEAD
 
         if (this.playerCount > 16 || this.playerCount < 11 || this.cost > 1000000 || this.tooManyBigGuys())
-=======
         
         if (this.playerCount > 16 || this.playerCount < 11 || this.value > 1000000)
->>>>>>> 657334b (Added output for all teams except College of Life (it is expected to be 3-4GB).)
         {
             return false;
         }
