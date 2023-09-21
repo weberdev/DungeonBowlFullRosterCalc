@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Numerics;
-Team activeTeam = new Team("defaultTeam", 50000, false);
-intHolder startingBudget = new intHolder(1000000);
-Console.WriteLine("Greetings, sports fans!");
-//defineDungeonBowlTeams();
-defineBloodBowlTeams();
 
-void defineDungeonBowlTeams()
+Team activeTeam = new Team("defaultTeam", 50000, false);
+Console.WriteLine("Greetings, sports fans!\n");
+List<Team> bloodBowlTeams = defineBloodBowlTeams();
+List<Team> dungeonBowlTeams = defineDungeonBowlTeams();
+processTeamList(bloodBowlTeams);
+//DO NOT UNCOMMENT THE LINE UNLESS YOU ARE EXTREMELY SURE YOU WANT TO GENERATE EVERY DUNGEON BOWL ROSTER: IT WILL TAKE HOURS
+//processTeamList(dungeonBowlTeams);
+
+
+List<Team> defineDungeonBowlTeams()
 {
     List<Team> Teams = new List<Team>();
 
@@ -280,14 +284,13 @@ void defineDungeonBowlTeams()
     heavens.positions.Add(heavensSpecial);
     Teams.Add(heavens);
 
-    //processTeamList(Teams);
-    handleTeam(life);
+    return Teams;
 }
 
-void defineBloodBowlTeams()
+List<Team> defineBloodBowlTeams()
 {
     List<Team> Teams = new List<Team>();
-    Team amazons = new Team("Amazons", 50000, true);
+    Team amazons = new Team("Amazons", 60000, true);
     Position amazonLinos = new Position("Linemen", 16, 1);
     Position amazonBlitzers = new Position("Blitzers", 2, 1);
     Position amazonThrowers = new Position("Throwers", 2, 1);
@@ -614,6 +617,7 @@ void defineBloodBowlTeams()
     Player nobilityLineman = new Player("Imperial Retainer Lineman", 45000);
     Position nobilityLinos = new Position("Linemen", 16, 1);
     nobilityLinos.players.Add(nobilityLineman);
+    imperialNobility.positions.Add(nobilityLinos);
     Player nobilityBlitzer = new Player("Noble Blitzer", 105000);
     Position nobLitzers = new Position("Blitzers", 2, 1);
     nobLitzers.players.Add(nobilityBlitzer);
@@ -894,10 +898,7 @@ void defineBloodBowlTeams()
     khorne.positions.Add(spawn);
     Teams.Add(khorne);
 
-
-
-    processTeamList(Teams);
-    handleTeam(darkElves);
+    return Teams;
 }
 
 void processTeamList(List<Team> teams)
@@ -907,92 +908,48 @@ void processTeamList(List<Team> teams)
         handleTeam(t);
         Console.WriteLine("END OF TEAM\n");
     }
-    Console.WriteLine("\n\nEND OF FILE");
+    foreach(TeamAndRate team in TeamHolder.teamSuccessRates)
+    {
+        Console.WriteLine($"{team.TeamName} had a {team.SuccessRate}% rate of allowable rosters: {team.numSuccesses} out of {team.totalRosters}. ");
+    }
     Console.WriteLine("END OF FILE");
 
 }
 
-void defineTestTeam()
-{
-    Player orcLino = new Player("Orc Lineman", 50000);
-    Player humanLino = new Player("Human Lineman", 50000);
-    Player goblinBruiserLino = new Player("Goblin Bruiser Lineman", 45000);
-    Position linos = new Position("Linemen", 16, 3);
-    linos.players.Add(orcLino);
-    linos.players.Add(humanLino);
-    linos.players.Add(goblinBruiserLino);
-
-    Player orcBlitz = new Player("Orc Blitzer", 80000);
-    Player humanBlitz = new Player("Human Blitzer", 85000);
-    Position blitzers = new Position("Blitzers", 4, 2);
-    blitzers.players.Add(orcBlitz);
-    blitzers.players.Add(humanBlitz);
-
-    Player orcThrow = new Player("Orc Thrower", 65000);
-    Position throwers = new Position("Throwers", 2, 1);
-    throwers.players.Add(orcThrow);
-
-    Player blackOrc = new Player("Black Orc", 90000);
-    Player bigUn = new Player("Big Un Blocker", 90000);
-    Player bodyguard = new Player("Bodyguard", 90000);
-    Player bloodseeker = new Player("Bloodseeker", 110000);
-    Position blockers = new Position("Blockers", 6, 4);
-    blockers.players.Add(bodyguard);
-    blockers.players.Add(bigUn);
-    blockers.players.Add(bloodseeker);
-    blockers.players.Add(blackOrc);
-    Team metal = new Team("College of Metal", 50000);
-    metal.positions.Add(linos);
-    metal.positions.Add(blockers);
-    metal.positions.Add(blitzers);
-    metal.positions.Add(throwers);
-    List<List<List<Player>>> allCombinations = FullCombinations(metal);
-    EveryCombination(allCombinations);
-    Console.WriteLine("END OF FILE");
-}
 static BigInteger getCombinationsFromTestTeam(Team testTeam)
 {
     BigInteger combinations = 1;
     foreach (Position p in testTeam.positions)
     {
         BigInteger thisMany = TestFunctions.MultiChooseSum(p.maximumPlayers, p.numberOfPlayerTypes);
-        Console.WriteLine($"{p.name}: {thisMany}");
         combinations *= thisMany;
     }
 
     Console.WriteLine($"Total Player Combinations: {combinations.ToString()}");
     return combinations;
 }
-static void getRostersFromTestTeam(Team testTeam)
-{
-    foreach (Position pos in testTeam.positions)
-    {
-        Console.WriteLine($"Combinations for {pos.name}:");
-        for (int i = 0; i <= pos.maximumPlayers; i++)
-        {
-            List<List<Player>> combinations = GenerateMultichooseCombinations(pos.players, i);
-            foreach (var combination in combinations)
-            {
-                // Create a roster with the combination of players
-                Roster roster = new Roster(testTeam);
-                foreach (Player player in combination)
-                {
-                    roster.AddPlayer(player);
-                }
-                Console.WriteLine($"Roster Value: {roster.value}");
-                Console.WriteLine(roster.GetRoster());
-            }
-        }
-    }
-}
 
 void handleTeam(Team currentTeam)
 {
     activeTeam = currentTeam;
+    TeamHolder.TeamName = currentTeam.name;
+    TeamHolder.acceptableRosters = 0;
     BigInteger potentialRosterCount = getCombinationsFromTestTeam(currentTeam);
+    TeamHolder.totalRosters = potentialRosterCount;
     Console.WriteLine($"Considering all rosters for {currentTeam.name}. \n");
     List<List<List<Player>>> bigList = FullCombinations(currentTeam);
     EveryCombination(bigList);
+    Console.WriteLine($"Acceptable Rosters: {TeamHolder.acceptableRosters}. Total Rosters Considered: {TeamHolder.totalRosters}");
+    decimal ratio = (decimal)TeamHolder.acceptableRosters / (decimal)TeamHolder.totalRosters;
+    ratio *= 100;
+    ratio = Math.Round(ratio, 2);
+    Console.WriteLine($"{ratio}% of potential rosters are acceptable.");
+    TeamAndRate tandr = new TeamAndRate();
+    tandr.TeamName = currentTeam.name;
+    tandr.SuccessRate = ratio;
+    tandr.numSuccesses = TeamHolder.acceptableRosters;
+    tandr.totalRosters = TeamHolder.totalRosters;
+    TeamHolder.teamSuccessRates.Add(tandr);
 }
 
 static List<List<List<Player>>> FullCombinations(Team testTeam)
@@ -1022,6 +979,7 @@ void IterateCombinations(List<List<List<Player>>> combinations, int positionInde
     if (positionIndex == combinations.Count)
     {
         // We have reached the end of the positions, so call ConsiderRoster
+
         ConsiderRoster(currentCombination);
         return;
     }
@@ -1041,7 +999,6 @@ void IterateCombinations(List<List<List<Player>>> combinations, int positionInde
     }
 }
 
-
 void ConsiderRoster(List<List<Player>> singularPositionCombination)
 {
     Roster TestRost = new Roster();
@@ -1053,8 +1010,9 @@ void ConsiderRoster(List<List<Player>> singularPositionCombination)
             TestRost.AddPlayer(player);
         }
     }
+    //Uncomment this and comment the line below it to skip to the success stats
+    //TestRost.quietlyCheckRoster();
     TestRost.ShowVerifiedRoster();
-    //Console.WriteLine(TestRost.GetRoster());
 }
 
 
@@ -1084,7 +1042,13 @@ static void GenerateCombinationsHelper(List<Player> players, int r, int startInd
     }
 }
 
-
+public class TeamAndRate
+{
+    public string TeamName;
+    public BigInteger numSuccesses;
+    public BigInteger totalRosters;
+    public decimal SuccessRate;
+}
 //A Blood/Dungeon Bowl team is comprised of players. For the sake of this program, players consist of two values: name and price.
 public class Player
 {
@@ -1152,7 +1116,6 @@ public class Team
     }
 }
 
-
 public class FullRosterStats
 {
     string name;
@@ -1165,18 +1128,12 @@ public class FullRosterStats
         acceptableRosters = 0;
     }
 }
-public class intHolder
-{
-    public int held;
-    public intHolder(int holdee)
-    {
-        held = holdee;
-    }
-}
+
 //A blood bowl league begins with every player filling out their starting roster.
 //Constraints: 11-16 players, 1 million gold starting budget.
 public class Roster
 {
+    int startingBudget = 1000000;
     //Teams in Blood/Dungeon Bowl are chosen from race or wizard college lists, depending on the game.
     //For the purposes of this program, we list it at the top of the roster for clarity's sake.
     //All other calculations with it have already been made.
@@ -1238,26 +1195,40 @@ public class Roster
     public bool checkIfValid()
     {
 
-        if (this.playerCount > 16 || this.playerCount < 11 || this.cost > 1000000 || this.tooManyBigGuys())
-        
-        if (this.playerCount > 16 || this.playerCount < 11 || this.value > 1000000)
+
+        if (this.playerCount > 16 || this.playerCount < 11 || this.cost > startingBudget || this.tooManyBigGuys())
         {
             return false;
         }
         return true;
     }
 
+    public void iterateRosterCount()
+    {
+        if (checkIfValid())
+        {
+            Console.WriteLine(".");
+        }
+    }
+    public void quietlyCheckRoster()
+    {
+        if (checkIfValid())
+        {
+            TeamHolder.acceptableRosters++;
+        }
+    }
     public void ShowVerifiedRoster()
     {
         if (checkIfValid())
         {
+            TeamHolder.acceptableRosters++;
             Console.WriteLine("Acceptable Roster:");
             Console.Write(GetRoster());
             Console.WriteLine(value.ToString());
-            int potentialRerolls = 1000000 - value;
+            int potentialRerolls = startingBudget - value;
             double potrer = potentialRerolls / raceOrCollege.rerollValue;
             potentialRerolls = (int)Math.Floor(potrer);
-            int leftoverCash = 1000000 - value;
+            int leftoverCash = startingBudget - value;
             if (leftoverCash >= 50000 && raceOrCollege.apothecary == true)
             {
                 int apoLeftCash = leftoverCash -= 50000;
@@ -1284,7 +1255,7 @@ public class Roster
             int maxRerolls = potentialRerolls * raceOrCollege.rerollValue;
             if (leftoverCash - maxRerolls >= 10000)
             {
-                Console.WriteLine($"If you take the maximum number of rerolls, you may hire up to {(leftoverCash - maxRerolls) / 10000} dedicated fans, assistant coaches, or cheerleaders.");
+                Console.WriteLine($"Assuming no apothecary, if you take the maximum number of rerolls, you may hire up to {(leftoverCash - maxRerolls) / 10000} dedicated fans, assistant coaches, or cheerleaders.");
             }
             Console.WriteLine("\n");
         }
@@ -1382,4 +1353,11 @@ public static class TestFunctions
         BigInteger denominator = LazyFactorial(sample) * LazyFactorial(objects - 1);
         return numerator / denominator;
     }
+}
+public static class TeamHolder
+{
+    public static string TeamName;
+    public static BigInteger acceptableRosters;
+    public static BigInteger totalRosters;
+    public static List<TeamAndRate> teamSuccessRates = new List<TeamAndRate>();
 }
