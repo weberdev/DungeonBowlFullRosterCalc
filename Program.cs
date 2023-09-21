@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Numerics;
+using System.Linq;
+int startingValue = 1000000;
 
 Team activeTeam = new Team("defaultTeam", 50000, false);
 Console.WriteLine("Greetings, sports fans!\n");
 List<Team> bloodBowlTeams = defineBloodBowlTeams();
 List<Team> dungeonBowlTeams = defineDungeonBowlTeams();
+bloodBowlTeams = bloodBowlTeams.OrderBy(team => team.name).ToList();
+dungeonBowlTeams = dungeonBowlTeams.OrderBy(team => team.name).ToList();
 processTeamList(bloodBowlTeams);
 //DO NOT UNCOMMENT THE LINE UNLESS YOU ARE EXTREMELY SURE YOU WANT TO GENERATE EVERY DUNGEON BOWL ROSTER: IT WILL TAKE HOURS
 //processTeamList(dungeonBowlTeams);
@@ -1001,7 +1005,7 @@ void IterateCombinations(List<List<List<Player>>> combinations, int positionInde
 
 void ConsiderRoster(List<List<Player>> singularPositionCombination)
 {
-    Roster TestRost = new Roster();
+    Roster TestRost = new Roster(startingValue);
     TestRost.raceOrCollege = activeTeam;
     foreach (List<Player> posList in singularPositionCombination)
     {
@@ -1116,24 +1120,11 @@ public class Team
     }
 }
 
-public class FullRosterStats
-{
-    string name;
-    int attemptedRosters;
-    int acceptableRosters;
-    public FullRosterStats(string inputName)
-    {
-        name = inputName;
-        attemptedRosters = 0;
-        acceptableRosters = 0;
-    }
-}
-
 //A blood bowl league begins with every player filling out their starting roster.
 //Constraints: 11-16 players, 1 million gold starting budget.
 public class Roster
 {
-    int startingBudget = 1000000;
+    int startingBudget;
     //Teams in Blood/Dungeon Bowl are chosen from race or wizard college lists, depending on the game.
     //For the purposes of this program, we list it at the top of the roster for clarity's sake.
     //All other calculations with it have already been made.
@@ -1145,8 +1136,19 @@ public class Roster
     public int cost;
     //zero to eight rerolls. Each has a value between 50000 and 70000.
     public int rerolls;
+
     public Roster()
     {
+        players = new List<Player>();
+        playerCount = 0;
+        value = 0;
+        cost = 0;
+
+        raceOrCollege = new Team("Whichever", 50000);
+    }
+    public Roster(int budget)
+    {
+        startingBudget = budget;
         players = new List<Player>();
         playerCount = 0;
         value = 0;
