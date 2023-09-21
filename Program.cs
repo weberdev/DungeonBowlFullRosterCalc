@@ -1173,7 +1173,10 @@ public class Roster
         raceOrCollege = race;
         players = new List<Player>();
     }
-
+    //This function is a duct tape solution. 
+    //Chaos Renegades are the only team out of about 35 that have a restriction of 0-1 on a specific player, and a further restriction on the number of players in that category in a position;
+    //We check if the team is Chaos Renegades. If it is, we iterate through the list of players, and count the number of Renegade {Big Guys}.
+    //If it is four, the roster is unacceptable.
     bool tooManyBigGuys()
     {
         int bigGuySum = 0;
@@ -1194,6 +1197,12 @@ public class Roster
         }
         return false;
     }
+    //A roster is valid if the following conditions are true:
+    //It has more than ten players.
+    //It has fewer than 17 players.
+    //Its cost does not exceed the starting budget (typically 1 million).
+    //It does not contain all of the following: Renegade Troll, Renegade Ogre, Renegade Minotaur, and Renegade Rat Ogre.
+    //The last condition does not come up often.
     public bool checkIfValid()
     {
 
@@ -1204,14 +1213,7 @@ public class Roster
         }
         return true;
     }
-
-    public void iterateRosterCount()
-    {
-        if (checkIfValid())
-        {
-            Console.WriteLine(".");
-        }
-    }
+    //This function has a call commented out elsewhere, solely to hasten generating team stats.
     public void quietlyCheckRoster()
     {
         if (checkIfValid())
@@ -1219,6 +1221,8 @@ public class Roster
             TeamHolder.acceptableRosters++;
         }
     }
+    //This is almost a toString for rosters, if they're acceptable.
+    //I'm writing things to a file via stdout right now.
     public void ShowVerifiedRoster()
     {
         if (checkIfValid())
@@ -1266,45 +1270,7 @@ public class Roster
             //Console.WriteLine($"Unacceptable Roster: Value: {value}. Players: {playerCount}\n");
         }
     }
-
-    /*public void ShowBloodBowlRoster()
-    {
-        if (checkIfValid())
-        {
-            Console.WriteLine("Acceptable Roster:");
-            Console.Write(GetRoster());
-            Console.WriteLine(value.ToString());
-            int leftoverCash = startingBudget - value; 
-            double potrer = leftoverCash / raceOrCollege.rerollValue;
-            int potentialRerolls = (int)Math.Floor(potrer);
-            if (leftoverCash >= 50000 && raceOrCollege.apothecary == true)
-            {
-                int apoLeftCash = leftoverCash -= 50000;
-                double apoPotRer = apoLeftCash / raceOrCollege.rerollValue;
-                int apoPotRerolls = (int)Math.Floor(apoPotRer);
-                if(apoPotRerolls > 8)
-                {
-                    Console.WriteLine("You may only take 8 rerolls.");
-                    apoPotRerolls = 8;
-                }
-                Console.WriteLine($"You may take an apothecary. If so, you may take up to {apoPotRerolls} rerolls.");
-                apoLeftCash -= apoPotRerolls / raceOrCollege.rerollValue;
-                if (apoLeftCash >= 10000)
-                {
-                    Console.WriteLine($"If you take the maximum number, you can hire up to {apoLeftCash / 10000} dedicated fans, assistant coaches and cheerleaders.");
-                }
-            }
-            leftoverCash = leftoverCash / raceOrCollege.rerollValue* potentialRerolls;
-            if(potentialRerolls > 8)
-            {
-                Console.WriteLine("You may only take 8 rerolls.");
-                potentialRerolls = 8;
-            }
-            Console.WriteLine($"Up to {potentialRerolls} rerolls.");
-            Console.WriteLine($"If you take the maximum number, you may take on up to {leftoverCash / 10000} dedicated fans, assistant coaches or cheerleaders. \n");
-        }
-    }
-    */
+    //This might as well be a toString for rosters.
     public string GetRoster()
     {
         string outputstr = "";
@@ -1315,13 +1281,7 @@ public class Roster
         }
         return outputstr;
     }
-    public void MergeRosters(Roster addedRoster)
-    {
-        foreach (Player plyr in addedRoster.players)
-        {
-            this.AddPlayer(plyr);
-        }
-    }
+
 }
 
 public static class TestFunctions
