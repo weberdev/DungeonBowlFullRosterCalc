@@ -1,6 +1,4 @@
-﻿using System;
-using System.Numerics;
-using System.Linq;
+﻿using System.Numerics;
 int startingValue = 1000000;
 
 Team activeTeam = new Team("defaultTeam", 50000, false);
