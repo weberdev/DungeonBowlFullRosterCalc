@@ -900,6 +900,29 @@ List<Team> defineBloodBowlTeams()
     khorne.positions.Add(spawn);
     Teams.Add(khorne);
 
+    Team Vampires = new Team("Vampires", 60000, true);
+    Player vampireLino = new Player("Thrall Lineman", 40000);
+    Position vampLinos = new Position("Linemen", 16, 1);
+    vampLinos.players.Add(vampireLino);
+    Vampires.positions.Add(vampLinos);
+    Player vampThrower = new Player("Vampire Thrower", 110000);
+    Position vampThrowers = new Position("Throwers", 2, 1);
+    vampThrowers.players.Add(vampThrower);
+    Vampires.positions.Add(vampThrowers);
+    Player vampRunner = new Player("Vampire Runner", 100000);
+    Position vampRunners = new Position("Runners", 2, 1);
+    vampRunners.players.Add(vampRunner);
+    Vampires.positions.Add(vampRunners);
+    Player vampBlitzer = new Player("Vampire Blitzer", 110000);
+    Position vampBlitzers = new Position("Blitzers", 2, 1);
+    vampBlitzers.players.Add(vampBlitzer);
+    Vampires.positions.Add(vampBlitzers);
+    Player vargheist = new Player("Vargheist", 150000);
+    Position varg = new Position("Big Guys", 1, 1);
+    varg.players.Add(vargheist);
+    Vampires.positions.Add(varg);
+    Teams.Add(Vampires);
+
     return Teams;
 }
 
@@ -940,7 +963,9 @@ void handleTeam(Team currentTeam)
     TeamHolder.totalRosters = potentialRosterCount;
     Console.WriteLine($"Considering all rosters for {currentTeam.name}. \n");
     List<List<List<Player>>> bigList = FullCombinations(currentTeam);
-    EveryCombination(bigList);
+    int rosterCount = (int)potentialRosterCount;
+    mapIterateCombinations(bigList, rosterCount);
+    //EveryCombination(bigList);
     Console.WriteLine($"Acceptable Rosters: {TeamHolder.acceptableRosters}. Total Rosters Considered: {TeamHolder.totalRosters}");
     decimal ratio = (decimal)TeamHolder.acceptableRosters / (decimal)TeamHolder.totalRosters;
     ratio *= 100;
@@ -953,6 +978,8 @@ void handleTeam(Team currentTeam)
     tandr.totalRosters = TeamHolder.totalRosters;
     TeamHolder.teamSuccessRates.Add(tandr);
 }
+
+
 
 static List<List<List<Player>>> FullCombinations(Team testTeam)
 {
@@ -975,6 +1002,37 @@ void EveryCombination(List<List<List<Player>>> combinations)
     List<List<Player>> currentCombination = new List<List<Player>>();
     IterateCombinations(combinations, 0, currentCombination);
 }
+
+void mapIterateCombinations(List<List<List<Player>>> combinations, int combinationCount)
+{
+    int combLen = combinations.Count;
+    int totalCombinations = 1;
+
+    // Calculate the total number of combinations
+    foreach (List<List<Player>> position in combinations)
+    {
+        totalCombinations *= position.Count;
+    }
+
+    for (int i = 0; i < combinationCount; i++)
+    {
+        int iteratorHolder = i;
+        List<List<Player>> thisCombination = new List<List<Player>>();
+
+        foreach (List<List<Player>> position in combinations)
+        {
+            int posLen = position.Count;
+            int index = iteratorHolder % posLen;
+            thisCombination.Add(position[index]);
+
+            // Update iteratorHolder for the next position list
+            iteratorHolder /= posLen;
+        }
+
+        ConsiderRoster(thisCombination);
+    }
+}
+
 
 void IterateCombinations(List<List<List<Player>>> combinations, int positionIndex, List<List<Player>> currentCombination)
 {
