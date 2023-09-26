@@ -950,7 +950,7 @@ static BigInteger getCombinationsFromTestTeam(Team testTeam)
         combinations *= thisMany;
     }
 
-    Console.WriteLine($"Total Player Combinations: {combinations.ToString()}");
+    //Console.WriteLine($"Total Player Combinations: {combinations.ToString()}");
     return combinations;
 }
 
@@ -961,7 +961,7 @@ void handleTeam(Team currentTeam)
     TeamHolder.acceptableRosters = 0;
     BigInteger potentialRosterCount = getCombinationsFromTestTeam(currentTeam);
     TeamHolder.totalRosters = potentialRosterCount;
-    Console.WriteLine($"Considering all rosters for {currentTeam.name}. \n");
+    Console.WriteLine($"Considering all rosters for {currentTeam.name}. There are {potentialRosterCount} potential rosters.\n");
     List<List<List<Player>>> bigList = FullCombinations(currentTeam);
     int rosterCount = (int)potentialRosterCount;
     mapIterateCombinations(bigList, rosterCount);
@@ -980,7 +980,6 @@ void handleTeam(Team currentTeam)
 }
 
 
-
 static List<List<List<Player>>> FullCombinations(Team testTeam)
 {
     List<List<List<Player>>> comblist = new List<List<List<Player>>>();
@@ -997,11 +996,6 @@ static List<List<List<Player>>> FullCombinations(Team testTeam)
     return comblist;
 }
 
-void EveryCombination(List<List<List<Player>>> combinations)
-{
-    List<List<Player>> currentCombination = new List<List<Player>>();
-    IterateCombinations(combinations, 0, currentCombination);
-}
 
 void mapIterateCombinations(List<List<List<Player>>> combinations, int combinationCount)
 {
@@ -1033,31 +1027,6 @@ void mapIterateCombinations(List<List<List<Player>>> combinations, int combinati
     }
 }
 
-
-void IterateCombinations(List<List<List<Player>>> combinations, int positionIndex, List<List<Player>> currentCombination)
-{
-    if (positionIndex == combinations.Count)
-    {
-        // We have reached the end of the positions, so call ConsiderRoster
-
-        ConsiderRoster(currentCombination);
-        return;
-    }
-
-    List<List<Player>> positionOptions = combinations[positionIndex];
-
-    foreach (List<Player> option in positionOptions)
-    {
-        // Add the current position option to the current combination
-        currentCombination.Add(option);
-
-        // Recursively call the function for the next position
-        IterateCombinations(combinations, positionIndex + 1, currentCombination);
-
-        // Remove the current position option to backtrack
-        currentCombination.RemoveAt(currentCombination.Count - 1);
-    }
-}
 
 void ConsiderRoster(List<List<Player>> singularPositionCombination)
 {
