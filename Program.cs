@@ -1,16 +1,51 @@
 ﻿using System.Numerics;
-int startingValue = 1000000;
+int startingValue = 1150000;
 
 Team activeTeam = new Team("defaultTeam", 50000, false);
 Console.WriteLine("Greetings, sports fans!\n");
 List<Team> bloodBowlTeams = defineBloodBowlTeams();
 List<Team> dungeonBowlTeams = defineDungeonBowlTeams();
+List<Team> allTeams = dungeonBowlTeams.Concat(bloodBowlTeams).ToList();
 bloodBowlTeams = bloodBowlTeams.OrderBy(team => team.name).ToList();
 dungeonBowlTeams = dungeonBowlTeams.OrderBy(team => team.name).ToList();
-processTeamList(bloodBowlTeams);
-//DO NOT UNCOMMENT THE LINE UNLESS YOU ARE EXTREMELY SURE YOU WANT TO GENERATE EVERY DUNGEON BOWL ROSTER: IT WILL TAKE HOURS
-//processTeamList(dungeonBowlTeams);
+List<List<Team>> fullTeamLists = new List<List<Team>>();
+fullTeamLists.Add(bloodBowlTeams);
+fullTeamLists.Add(dungeonBowlTeams);
+fullTeamLists.Add(allTeams);
 
+//Console.WriteLine("Listing all teams.");
+//handleTeam(chooseTeam(allTeams));
+
+processTeamList(bloodBowlTeams);
+//DO NOT UNCOMMENT EITHER OF THE LINES BELOW UNLESS YOU ARE EXTREMELY SURE YOU WANT TO GENERATE EVERY DUNGEON BOWL ROSTER: IT WILL TAKE HOURS
+//processTeamList(dungeonBowlTeams);
+//processTeamList(allTeams);
+char choice;
+
+
+Team chooseTeam(List<Team> teamList)
+{
+    int i = 1;
+    foreach (Team t in teamList)
+    {
+        Console.Write(i);
+        Console.Write(". ");
+        Console.WriteLine(t.name);
+        i++;
+    }
+    int chosenTeam = 0;
+    while (chosenTeam < 1)
+    {
+        Console.WriteLine("Enter a number corresponding to a team.");
+        string input = Console.ReadLine();
+        int number;
+        if (Int32.TryParse(input, out number))
+        {
+            chosenTeam = number;
+        }
+    }
+    return teamList[chosenTeam - 1];
+}
 
 List<Team> defineDungeonBowlTeams()
 {
@@ -695,7 +730,7 @@ List<Team> defineBloodBowlTeams()
     Team ogreTeam = new Team("Ogres", 70000, true);
     Player gnoblarLineman = new Player("Gnoblar Lineman", 15000, 0);
     Position ogreLinos = new Position("Linemen", 16, 1);
-    Player ogreBlocker = new Player("Ogre Blocker", 14000);
+    Player ogreBlocker = new Player("Ogre Blocker", 140000);
     Position ogreBlockers = new Position("Ogre Blockers", 5, 1);
     ogreLinos.players.Add(gnoblarLineman);
     ogreBlockers.players.Add(ogreBlocker);
@@ -965,7 +1000,6 @@ void handleTeam(Team currentTeam)
     List<List<List<Player>>> bigList = FullCombinations(currentTeam);
     int rosterCount = (int)potentialRosterCount;
     mapIterateCombinations(bigList, rosterCount);
-    //EveryCombination(bigList);
     Console.WriteLine($"Acceptable Rosters: {TeamHolder.acceptableRosters}. Total Rosters Considered: {TeamHolder.totalRosters}");
     decimal ratio = (decimal)TeamHolder.acceptableRosters / (decimal)TeamHolder.totalRosters;
     ratio *= 100;
@@ -1232,7 +1266,7 @@ public class Roster
     {
 
 
-        if (this.playerCount > 16 || this.playerCount < 11 || this.cost > startingBudget || this.tooManyBigGuys())
+        if (this.playerCount > 16 || this.playerCount < 11 || this.value > startingBudget || this.tooManyBigGuys())
         {
             return false;
         }
@@ -1255,11 +1289,15 @@ public class Roster
             TeamHolder.acceptableRosters++;
             Console.WriteLine("Acceptable Roster:");
             Console.Write(GetRoster());
-            Console.WriteLine(value.ToString());
-            int potentialRerolls = startingBudget - value;
+            Console.WriteLine($"Pre-reroll team cost: {cost.ToString()}");
+            if(cost != value)
+            {
+                Console.WriteLine($"Adjusted Team Value: {value}");
+            }
+            int potentialRerolls = startingBudget - cost;
             double potrer = potentialRerolls / raceOrCollege.rerollValue;
             potentialRerolls = (int)Math.Floor(potrer);
-            int leftoverCash = startingBudget - value;
+            int leftoverCash = startingBudget - cost;
             if (leftoverCash >= 50000 && raceOrCollege.apothecary == true)
             {
                 int apoLeftCash = leftoverCash -= 50000;
