@@ -1,5 +1,5 @@
 ﻿using System.Numerics;
-int startingValue = 1150000;
+int startingValue = 1000000;
 
 Team activeTeam = new Team("defaultTeam", 50000, false);
 Console.WriteLine("Greetings, sports fans!\n");
