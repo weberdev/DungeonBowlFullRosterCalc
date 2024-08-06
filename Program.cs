@@ -171,30 +171,46 @@ List<Team> defineDungeonBowlTeams()
     Teams.Add(metal);
 
     Team death = new Team("College of Death", 50000);
-    Position deathLinos = new Position("Linemen", 16, 2);
+    Position deathLinos = new Position("Linemen", 16, 3);
     Player zombieLineman = new Player("Zombie Lineman", 40000);
     Player skeletonLineman = new Player("Skeleton Lineman", 40000);
+    Player thrallLineman = new Player("Thrall Lineman", 40000);
     deathLinos.players.Add(skeletonLineman);
     deathLinos.players.Add(zombieLineman);
+    deathLinos.players.Add(thrallLineman);
     death.positions.Add(deathLinos);
-    Position deathRunners = new Position("Runners", 4, 1);
+    Position deathRunners = new Position("Runners", 4, 2);
     Player ghoulRunner = new Player("Ghoul Runner", 75000);
+    Player vampireRunner = new Player("Vampire Runner", 100000);
     deathRunners.players.Add(ghoulRunner);
-    Position deathBlitzers = new Position("Blitzers", 4, 2);
-    Position deathBlockers = new Position("Blockers", 4, 1);
-    Position deathBigGuys = new Position("Big Guys", 2, 1);
+    deathRunners.players.Add(vampireRunner);
+    death.positions.Add(deathRunners);
     Player wightBlitzer = new Player("Wight Blitzer", 90000);
     Player wraith = new Player("Wraith", 95000);
-    Player fleshGolem = new Player("Flesh Golem", 115000);
-    Player mummy = new Player("Mummy", 125000);
+    Player vampireBlitzer = new Player("Vampire Blitzer", 110000);
+    Position deathBlitzers = new Position("Blitzers", 4, 3);
     deathBlitzers.players.Add(wraith);
     deathBlitzers.players.Add(wightBlitzer);
-    deathBigGuys.players.Add(mummy);
-    deathBlockers.players.Add(fleshGolem);
+    deathBlitzers.players.Add(vampireBlitzer);
     death.positions.Add(deathBlitzers);
-    death.positions.Add(deathRunners);
+    Player fleshGolem = new Player("Flesh Golem", 115000);
+    Position deathBlockers = new Position("Blockers", 4, 1);
+    deathBlockers.players.Add(fleshGolem);
     death.positions.Add(deathBlockers);
+    Player mummy = new Player("Mummy", 125000);
+    Player vargheist = new Player("Vargheist", 150000);
+    Position deathBigGuys = new Position("Big Guys", 2, 2);
+    deathBigGuys.players.Add(mummy);
+    deathBigGuys.players.Add(vargheist);
     death.positions.Add(deathBigGuys);
+    Player vampireThrower = new Player("Vampire Thrower", 110000);
+    Position deathThrowers = new Position("Throwers", 2, 1);
+    deathThrowers.players.Add(vampireThrower);
+    death.positions.Add(deathThrowers);
+
+    
+    
+
     Teams.Add(death);
 
     Team life = new Team("College of Life", 50000);
