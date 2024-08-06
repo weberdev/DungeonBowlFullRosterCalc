@@ -958,6 +958,29 @@ List<Team> defineBloodBowlTeams()
     Vampires.positions.Add(varg);
     Teams.Add(Vampires);
 
+    Team Gnomes = new Team("Gnomes", 50000, true);
+    Player gnomeLino = new Player("Gnome Lineman", 40000);
+    Position gnomeLinos = new Position("Linemen", 16, 1);
+    gnomeLinos.players.Add(gnomeLino);
+    Gnomes.positions.Add(gnomeLinos);
+    Position gnomeTrees = new Position("Big Guys", 2, 1);
+    gnomeTrees.players.Add(halfTree);
+    Gnomes.positions.Add(gnomeTrees);
+    Player gnomeBeastmaster = new Player("Gnome Beastmaster", 55000);
+    Position gnomeBeastmasters = new Position("Beastmasters", 2, 1);
+    gnomeBeastmasters.players.Add(gnomeBeastmaster);
+    Gnomes.positions.Add(gnomeBeastmasters);
+    Player gnomeIllusionist = new Player("Gnome Illusionist", 50000);
+    Position gnomeIllusionists = new Position("Illusionists", 2, 1);
+    gnomeIllusionists.Add(gnomeIllusionist);
+    Gnomes.positions.Add(gnomeIllusionists);
+    Player gnomeFox = new Player("Woodland Fox", 50000);
+    Position gnomeFoxes = new Position("Foxes", 2, 1);
+    gnomeFoxes.Add(gnomeFox);
+    Gnomes.positions.Add(gnomeFoxes);
+    Teams.Add(Gnomes);
+    
+
     return Teams;
 }
 
