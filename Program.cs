@@ -996,11 +996,11 @@ List<Team> defineBloodBowlTeams()
     Gnomes.positions.Add(gnomeBeastmasters);
     Player gnomeIllusionist = new Player("Gnome Illusionist", 50000);
     Position gnomeIllusionists = new Position("Illusionists", 2, 1);
-    gnomeIllusionists.Add(gnomeIllusionist);
+    gnomeIllusionists.players.Add(gnomeIllusionist);
     Gnomes.positions.Add(gnomeIllusionists);
     Player gnomeFox = new Player("Woodland Fox", 50000);
     Position gnomeFoxes = new Position("Foxes", 2, 1);
-    gnomeFoxes.Add(gnomeFox);
+    gnomeFoxes.players.Add(gnomeFox);
     Gnomes.positions.Add(gnomeFoxes);
     Teams.Add(Gnomes);
     
