@@ -108,6 +108,33 @@ void handleTeam(Team currentTeam)
     TeamHolder.teamSuccessRates.Add(tandr);
 }
 
+void handleTeamSevens(Team currentTeam)
+{
+    activeTeam = currentTeam;
+    TeamHolder.TeamName = currentTeam.name;
+    TeamHolder.acceptableRosters = 0;
+    BigInteger potentialRosterCount = getCombinationsFromTestTeam(currentTeam);
+    TeamHolder.totalRosters = potentialRosterCount;
+    Console.WriteLine($"Considering all rosters for {currentTeam.name}. There are {potentialRosterCount} potential rosters.\n");
+    List<List<List<Player>>> bigList = FullCombinations(currentTeam);
+    int rosterCount = (int)potentialRosterCount;
+    mapIterateSevensCombinations(bigList, rosterCount);
+    DateTime currentTime = DateTime.Now;
+    Console.WriteLine($"Current Time: {currentTime}");
+    Console.WriteLine($"Acceptable Rosters: {TeamHolder.acceptableRosters}. Total Rosters Considered: {TeamHolder.totalRosters}");
+    decimal ratio = (decimal)TeamHolder.acceptableRosters / (decimal)TeamHolder.totalRosters;
+    ratio *= 100;
+    ratio = Math.Round(ratio, 2);
+    Console.WriteLine($"{ratio}% of potential rosters are acceptable.");
+    TeamAndRate tandr = new TeamAndRate();
+    tandr.TeamName = currentTeam.name;
+    tandr.SuccessRate = ratio;
+    tandr.numSuccesses = TeamHolder.acceptableRosters;
+    tandr.totalRosters = TeamHolder.totalRosters;
+    TeamHolder.teamSuccessRates.Add(tandr);
+}
+
+
 
 static List<List<List<Player>>> FullCombinations(Team testTeam)
 {
@@ -156,6 +183,35 @@ void mapIterateCombinations(List<List<List<Player>>> combinations, int combinati
     }
 }
 
+void mapIterateSevensCombinations(List<List<List<Player>>> combinations, int combinationCount)
+{
+    int combLen = combinations.Count;
+    int totalCombinations = 1;
+
+    // Calculate the total number of combinations
+    foreach (List<List<Player>> position in combinations)
+    {
+        totalCombinations *= position.Count;
+    }
+
+    for (int i = 0; i < combinationCount; i++)
+    {
+        int iteratorHolder = i;
+        List<List<Player>> thisCombination = new List<List<Player>>();
+
+        foreach (List<List<Player>> position in combinations)
+        {
+            int posLen = position.Count;
+            int index = iteratorHolder % posLen;
+            thisCombination.Add(position[index]);
+
+            // Update iteratorHolder for the next position list
+            iteratorHolder /= posLen;
+        }
+
+        ConsiderSevensRoster(thisCombination);
+    }
+}
 
 void ConsiderRoster(List<List<Player>> singularPositionCombination)
 {
@@ -170,8 +226,25 @@ void ConsiderRoster(List<List<Player>> singularPositionCombination)
     }
 
     //Uncomment this and comment the line below it to skip to the success stats
-    TestRost.quietlyCheckRoster();
-    //TestRost.ShowVerifiedRoster();
+    //TestRost.quietlyCheckRoster();
+    TestRost.ShowVerifiedRoster();
+}
+
+void ConsiderSevensRoster(List<List<Player>> singularPositionCombination)
+{
+    Roster TestRost = new Roster(startingValue);
+    TestRost.raceOrCollege = activeTeam;
+    foreach (List<Player> posList in singularPositionCombination)
+    {
+        foreach (Player player in posList)
+        {
+            TestRost.AddPlayer(player);
+        }
+    }
+
+    //Uncomment this and comment the line below it to skip to the success stats
+    //TestRost.quietlyCheckRoster();
+    TestRost.ShowVerifiedSevensRoster();
 }
 
 
