@@ -462,6 +462,109 @@ public class Roster
             //Console.WriteLine($"Unacceptable Roster: Value: {value}. Players: {playerCount}\n");
         }
     }
+    public void ShowVerifiedSevensRoster()
+    {
+        if (checkIfSevensValid())
+        {
+            TeamHolder.acceptableRosters++;
+            Console.WriteLine("Acceptable Roster:");
+            Console.Write(GetRoster());
+            Console.WriteLine($"Pre-reroll team cost: {cost.ToString()}");
+            if (cost != value)
+            {
+                Console.WriteLine($"Adjusted Team Value: {value}");
+            }
+            int potentialRerolls = (startingBudget - cost)/2;
+            double potrer = potentialRerolls / raceOrCollege.rerollValue;
+            potentialRerolls = (int)Math.Floor(potrer);
+            int leftoverCash = startingBudget - cost;
+            if (leftoverCash >= 50000 && raceOrCollege.apothecary == true)
+            {
+                int apoLeftCash = leftoverCash -= 50000;
+                double apoPotRer = apoLeftCash / raceOrCollege.rerollValue;
+                int apoPotRerolls = (int)Math.Floor(apoPotRer);
+                if (apoPotRerolls > 8)
+                {
+                    Console.WriteLine("You may only take 8 rerolls.");
+                    apoPotRerolls = 8;
+                }
+                Console.WriteLine($"You may take an apothecary. If so, you may take up to {apoPotRerolls} rerolls.");
+                apoLeftCash -= apoPotRerolls * raceOrCollege.rerollValue;
+                if (apoLeftCash >= 10000)
+                {
+                    Console.WriteLine($"If you take the maximum number of rerolls, you can hire up to {apoLeftCash / 10000} dedicated fans, assistant coaches and cheerleaders.");
+                }
+            }
+            if (potentialRerolls > 8)
+            {
+                Console.WriteLine("Budget exceeds 8 rerolls, maximum eight allowed.");
+                potentialRerolls = 8;
+            }
+            Console.WriteLine($"Up to {potentialRerolls} rerolls.");
+            int maxRerolls = potentialRerolls * raceOrCollege.rerollValue;
+            if (leftoverCash - maxRerolls >= 10000)
+            {
+                Console.WriteLine($"Assuming no apothecary, if you take the maximum number of rerolls, you may hire up to {(leftoverCash - maxRerolls) / 10000} dedicated fans, assistant coaches, or cheerleaders.");
+            }
+            Console.WriteLine("\n");
+        }
+        else
+        {
+            //Console.WriteLine($"Unacceptable Roster: Value: {value}. Players: {playerCount}\n");
+        }
+    }
+
+    public void ShowVerifiedGutterRoster()
+    {
+        if (checkIfSevensValid())
+        {
+            TeamHolder.acceptableRosters++;
+            Console.WriteLine("Acceptable Roster:");
+            Console.Write(GetRoster());
+            Console.WriteLine($"Pre-reroll team cost: {cost.ToString()}");
+            if (cost != value)
+            {
+                Console.WriteLine($"Adjusted Team Value: {value}");
+            }
+            int potentialRerolls = (startingBudget - cost) / 2;
+            double potrer = potentialRerolls / 100000;
+            potentialRerolls = (int)Math.Floor(potrer);
+            int leftoverCash = startingBudget - cost;
+            if (leftoverCash >= 50000 && raceOrCollege.apothecary == true)
+            {
+                int apoLeftCash = leftoverCash -= 50000;
+                double apoPotRer = apoLeftCash / raceOrCollege.rerollValue;
+                int apoPotRerolls = (int)Math.Floor(apoPotRer);
+                if (apoPotRerolls > 8)
+                {
+                    Console.WriteLine("You may only take 8 rerolls.");
+                    apoPotRerolls = 8;
+                }
+                Console.WriteLine($"You may take an apothecary. If so, you may take up to {apoPotRerolls} rerolls.");
+                apoLeftCash -= apoPotRerolls * raceOrCollege.rerollValue;
+                if (apoLeftCash >= 10000)
+                {
+                    Console.WriteLine($"If you take the maximum number of rerolls, you can hire up to {apoLeftCash / 10000} dedicated fans, assistant coaches and cheerleaders.");
+                }
+            }
+            if (potentialRerolls > 8)
+            {
+                Console.WriteLine("Budget exceeds 8 rerolls, maximum eight allowed.");
+                potentialRerolls = 8;
+            }
+            Console.WriteLine($"Up to {potentialRerolls} rerolls.");
+            int maxRerolls = potentialRerolls * raceOrCollege.rerollValue;
+            if (leftoverCash - maxRerolls >= 10000)
+            {
+                Console.WriteLine($"Assuming no apothecary, if you take the maximum number of rerolls, you may hire up to {(leftoverCash - maxRerolls) / 10000} dedicated fans, assistant coaches, or cheerleaders.");
+            }
+            Console.WriteLine("\n");
+        }
+        else
+        {
+            //Console.WriteLine($"Unacceptable Roster: Value: {value}. Players: {playerCount}\n");
+        }
+    }
     //This might as well be a toString for rosters.
     public string GetRoster()
     {
