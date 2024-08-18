@@ -19,6 +19,8 @@ fullTeamLists.Add(allTeams);
 //Console.WriteLine("Listing all teams.");
 //handleTeam(chooseTeam(allTeams));
 
+//this is currently set for Blood Bowl
+//Options will be set up for Sevens at a later date
 processTeamList(bloodBowlTeams);
 //DO NOT UNCOMMENT EITHER OF THE LINES BELOW UNLESS YOU ARE EXTREMELY SURE YOU WANT TO GENERATE EVERY DUNGEON BOWL ROSTER: IT WILL TAKE HOURS
 //processTeamList(dungeonBowlTeams);
