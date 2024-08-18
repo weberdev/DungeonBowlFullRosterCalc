@@ -582,7 +582,7 @@ namespace TeamDefinitions
             Teams.Add(ChaosRenegades);
 
             Team GoblinTeam = new Team("Goblins", 60000, true);
-            Player goblin = new Player("Goblin", 40000);
+            Player goblin = new Player("Goblin Lineman", 40000);
             Position goblinos = new Position("Linemen", 16);
             goblinos.players.Add(goblin);
             GoblinTeam.positions.Add(goblinos);
@@ -616,7 +616,7 @@ namespace TeamDefinitions
             Teams.Add(GoblinTeam);
 
             Team HalflingTeam = new Team("Halflings", 60000, true);
-            Position halflinos = new Position("Linemen", 16);
+            Position halflinos = new Position("Halfling Linemen", 16);
             halflinos.players.Add(humanHalfling);
             HalflingTeam.positions.Add(halflinos);
             Player hefty = new Player("Halfling Hefty", 50000);
@@ -672,7 +672,7 @@ namespace TeamDefinitions
             Teams.Add(lizardmanTeam);
 
             Team necromanticHorror = new Team("Necromantic Horror", 70000, false);
-            Player Zombie = new Player("Zombie", 40000);
+            Player Zombie = new Player("Zombie Lineman", 40000);
             Position spookyLinemen = new Position("Linemen", 16);
             spookyLinemen.players.Add(Zombie);
             necromanticHorror.positions.Add(spookyLinemen);
@@ -797,7 +797,7 @@ namespace TeamDefinitions
             Team shamblingUndead = new Team("Shambling Undead", 70000, false);
             Position zombieLinos = new Position("Zombies", 12);
             zombieLinos.players.Add(Zombie);
-            Player skeleton = new Player("Skeleton", 40000);
+            Player skeleton = new Player("Skeleton Lineman", 40000);
             Position skeletonLinos = new Position("Skeletons", 12);
             skeletonLinos.players.Add(skeleton);
             shamblingUndead.positions.Add(skeletonLinos);
@@ -842,7 +842,7 @@ namespace TeamDefinitions
             Teams.Add(snotlingTeam);
 
             Team underworldDenizens = new Team("Underworld Denizens", 70000, true);
-            Player undGoblin = new Player("Underworld Goblin", 40000);
+            Player undGoblin = new Player("Underworld Goblin Lineman", 40000);
             Position undLinos = new Position("Linemen", 12);
             undLinos.players.Add(undGoblin);
             underworldDenizens.positions.Add(undLinos);

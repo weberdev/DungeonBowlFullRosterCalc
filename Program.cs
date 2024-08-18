@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using TeamDefinitions;
 int startingValue = 1000000;
+int sevensStartingValue;
 
 Team activeTeam = new Team("defaultTeam", 50000, false);
 Console.WriteLine("Greetings, sports fans!\n");
@@ -23,6 +24,7 @@ processTeamList(bloodBowlTeams);
 //processTeamList(dungeonBowlTeams);
 //processTeamList(allTeams);
 char choice;
+Console.ReadKey();
 
 
 Team chooseTeam(List<Team> teamList)
@@ -63,7 +65,7 @@ void processTeamList(List<Team> teams)
         Console.WriteLine($"{team.TeamName} had a {team.SuccessRate}% rate of allowable rosters: {team.numSuccesses} out of {team.totalRosters}. ");
     }
     Console.WriteLine("END OF FILE");
-
+   
 }
 
 static BigInteger getCombinationsFromTestTeam(Team testTeam)
@@ -79,6 +81,7 @@ static BigInteger getCombinationsFromTestTeam(Team testTeam)
     return combinations;
 }
 
+
 void handleTeam(Team currentTeam)
 {
     activeTeam = currentTeam;
@@ -90,6 +93,8 @@ void handleTeam(Team currentTeam)
     List<List<List<Player>>> bigList = FullCombinations(currentTeam);
     int rosterCount = (int)potentialRosterCount;
     mapIterateCombinations(bigList, rosterCount);
+    DateTime currentTime = DateTime.Now;
+    Console.WriteLine($"Current Time: {currentTime}");
     Console.WriteLine($"Acceptable Rosters: {TeamHolder.acceptableRosters}. Total Rosters Considered: {TeamHolder.totalRosters}");
     decimal ratio = (decimal)TeamHolder.acceptableRosters / (decimal)TeamHolder.totalRosters;
     ratio *= 100;
@@ -163,9 +168,10 @@ void ConsiderRoster(List<List<Player>> singularPositionCombination)
             TestRost.AddPlayer(player);
         }
     }
+
     //Uncomment this and comment the line below it to skip to the success stats
-    //TestRost.quietlyCheckRoster();
-    TestRost.ShowVerifiedRoster();
+    TestRost.quietlyCheckRoster();
+    //TestRost.ShowVerifiedRoster();
 }
 
 
@@ -227,7 +233,17 @@ public class Player
         return summ;
     }
 
-
+    bool isLino()
+    {
+        if (this.name.EndsWith("Lineman") || this.name.EndsWith("Linewoman"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 //Each position contains a list of players, a maximum number of players in that position, and, for the sake of avoiding int to BigInteger conversion, a count of the number of options.
 //This is not as expandable as I'd like, but I think it's a better option right now.
@@ -344,6 +360,22 @@ public class Roster
         }
         return false;
     }
+    bool sevensTooManyPositionals()
+    {
+        int count = 0;
+        foreach (Player p in this.players)
+        {
+            if (p.IsLino == false)
+            {
+                count++;
+            }
+        }
+        if (count > 5)
+        {
+            return true;
+        }
+        return false;
+    }
     //A roster is valid if the following conditions are true:
     //It has more than ten players.
     //It has fewer than 17 players.
@@ -355,6 +387,15 @@ public class Roster
 
 
         if (this.playerCount > 16 || this.playerCount < 11 || this.value > startingBudget || this.tooManyBigGuys())
+        {
+            return false;
+        }
+        return true;
+    }
+    public bool checkIfSevensValid()
+    {
+
+        if (this.playerCount > 11 || this.playerCount < 7 || this.value > sevensStartingValue || this.tooManyBigGuys() || this.sevensPositionalCheck())
         {
             return false;
         }
