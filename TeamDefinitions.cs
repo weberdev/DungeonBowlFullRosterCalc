@@ -962,6 +962,15 @@ namespace TeamDefinitions
             Gnomes.positions.Add(gnomeFoxes);
             Teams.Add(Gnomes);
 
+            Team ChaosDwarfs = new Team("Chaos Dwarfs", 60000, true);
+            Player hobgobLino = new Player("Hobgoblin Lineman", 40000);
+            Position CDLinos = new Position("Lineman", 16);
+            CDLinos.players.Add(hobgobLino);
+            ChaosDwarfs.positions.Add(CDLinos);
+            Player CDStabbers = new Player("Hobgoblin Stabber", 60000);
+            Position CDStabs = new Position("Stabbers", 2);
+            ChaosDwarfs.players.Add(CDStabbers);
+
 
             return Teams;
         }
