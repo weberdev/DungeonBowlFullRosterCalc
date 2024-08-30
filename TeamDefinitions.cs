@@ -976,6 +976,10 @@ namespace TeamDefinitions
             Position CDBLockers = new Position("Blockers", 4);
             CDBLockers.players.Add(ChaosDwarfBlockers);
             ChaosDwarfs.positions.Add(CDBLockers);
+            Player Flamesmith = new Player("Chaos Dwarf Flamesmith", 75000);
+            Position Flamesmiths = new Position("Flamesmiths", 2);
+            Flamesmiths.players.Add(Flamesmith);
+            ChaosDwarfs.positions.Add(Flamesmiths);
             Player BullCentaurs = new Player("Bull Centaur", 130000);
             Position BlCentaurs = new Positions("Bull Centaurs", 2);
             BlCentaurs.players.Add(BullCentaurs);
