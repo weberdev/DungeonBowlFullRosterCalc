@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Media;
 
 namespace TeamDefinitions
 {
@@ -967,9 +968,23 @@ namespace TeamDefinitions
             Position CDLinos = new Position("Lineman", 16);
             CDLinos.players.Add(hobgobLino);
             ChaosDwarfs.positions.Add(CDLinos);
-            Player CDStabbers = new Player("Hobgoblin Stabber", 60000);
-            Position CDStabs = new Position("Stabbers", 2);
-            ChaosDwarfs.players.Add(CDStabbers);
+            Player CDStabbers = new Player("Hobgoblin Sneaky Stabba", 60000);
+            Position CDStabs = new Position("Stabba", 2);
+            CDStabs.players.Add(CDStabbers);
+            ChaosDwarfs.positions.Add(CDStabbers);
+            Player ChaosDwarfBlockers = new Player("Chaos Dwarf Blocker", 70000);
+            Position CDBLockers = new Position("Blockers", 4);
+            CDBLockers.players.Add(ChaosDwarfBlockers);
+            ChaosDwarfs.positions.Add(CDBLockers);
+            Player BullCentaurs = new Player("Bull Centaur", 130000);
+            Position BlCentaurs = new Positions("Bull Centaurs", 2);
+            BlCentaurs.players.Add(BullCentaurs);
+            ChaosDwarfs.positions.AddRange(BullCentaurs);
+            Player EnslavedMinotaur = new Player("Enslaved Minotaur", 115000);
+            Position CDMinotaurs = new Position("Minotaurs", 1);
+            CDMinotaurs.players.Add(EnslavedMinotaur);
+            ChaosDwarfs.positions.Add(CDMinotaurs);
+
 
 
             return Teams;
