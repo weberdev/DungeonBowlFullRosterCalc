@@ -988,6 +988,7 @@ namespace TeamDefinitions
             Position CDMinotaurs = new Position("Minotaurs", 1);
             CDMinotaurs.players.Add(EnslavedMinotaur);
             ChaosDwarfs.positions.Add(CDMinotaurs);
+            Teams.Add(ChaosDwarfs);
 
 
 
