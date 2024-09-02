@@ -989,6 +989,7 @@ namespace TeamDefinitions
             CDMinotaurs.players.Add(EnslavedMinotaur);
             ChaosDwarfs.positions.Add(CDMinotaurs);
             Teams.Add(ChaosDwarfs);
+            //these numbers will need to be updated.
 
 
 
