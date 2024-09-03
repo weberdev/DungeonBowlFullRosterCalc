@@ -990,6 +990,7 @@ namespace TeamDefinitions
             ChaosDwarfs.positions.Add(CDMinotaurs);
             Teams.Add(ChaosDwarfs);
             //these numbers will need to be updated.
+            //still not here
 
 
 
