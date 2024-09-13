@@ -110,6 +110,10 @@ void handleTeam(Team currentTeam)
     TeamHolder.teamSuccessRates.Add(tandr);
 }
 
+
+//todo: fold this into handleteam as a function
+//needs good UI planning
+//possibly wait until webapp?
 void handleTeamSevens(Team currentTeam)
 {
     activeTeam = currentTeam;
