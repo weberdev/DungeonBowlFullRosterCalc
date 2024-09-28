@@ -991,6 +991,7 @@ namespace TeamDefinitions
             Teams.Add(ChaosDwarfs);
             //these numbers will need to be updated.
             //almost midnight, commiting somethign for the day
+            //chaso dwarfs still have no gold values, please GW, PLEASE
           
             return Teams;
         }
