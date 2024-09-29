@@ -968,7 +968,7 @@ namespace TeamDefinitions
             Position CDLinos = new Position("Lineman", 16);
             CDLinos.players.Add(hobgobLino);
             ChaosDwarfs.positions.Add(CDLinos);
-            Player CDStabbers = new Player("Hobgoblin Sneaky Stabba", 60000);
+            Player CDStabbers = new Player("Hobgoblin Sneaky Stabba", 70000);
             Position CDStabs = new Position("Stabba", 2);
             CDStabs.players.Add(CDStabbers);
             ChaosDwarfs.positions.Add(CDStabbers);
@@ -976,7 +976,7 @@ namespace TeamDefinitions
             Position CDBLockers = new Position("Blockers", 4);
             CDBLockers.players.Add(ChaosDwarfBlockers);
             ChaosDwarfs.positions.Add(CDBLockers);
-            Player Flamesmith = new Player("Chaos Dwarf Flamesmith", 75000);
+            Player Flamesmith = new Player("Chaos Dwarf Flamesmith", 80000);
             Position Flamesmiths = new Position("Flamesmiths", 2);
             Flamesmiths.players.Add(Flamesmith);
             ChaosDwarfs.positions.Add(Flamesmiths);
@@ -984,7 +984,7 @@ namespace TeamDefinitions
             Position BlCentaurs = new Positions("Bull Centaurs", 2);
             BlCentaurs.players.Add(BullCentaurs);
             ChaosDwarfs.positions.AddRange(BullCentaurs);
-            Player EnslavedMinotaur = new Player("Enslaved Minotaur", 115000);
+            Player EnslavedMinotaur = new Player("Enslaved Minotaur", 150000);
             Position CDMinotaurs = new Position("Minotaurs", 1);
             CDMinotaurs.players.Add(EnslavedMinotaur);
             ChaosDwarfs.positions.Add(CDMinotaurs);
