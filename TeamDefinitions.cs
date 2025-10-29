@@ -329,27 +329,8 @@ namespace TeamDefinitions
             amazons.positions.Add(amazonBlockers);
             Teams.Add(amazons);
 
-            Team chaosDwarfs = new Team("Chaos Dwarfs", 50000, true);
-            Player hobgoblinLineman = new Player("Hobgoblin Lineman", 40000);
-            Position chaosDwarfLinemen = new Position("Linemen", 16);
-            chaosDwarfLinemen.players.Add(hobgoblinLineman);
-            Player chaosDwarfBlocker = new Player("Chaos Dwarf Blocker", 70000);
-            Position chaosDwarfBlockers = new Position("Blockers", 6);
-            chaosDwarfBlockers.players.Add(chaosDwarfBlocker);
-            Player bullCentaur = new Player("Bull Centaur", 130000);
-            Position bullCentaurs = new Position("Bull Centaurs", 2);
-            bullCentaurs.players.Add(bullCentaur);
-            Player chaosDwarfMinotaur = new Player("Enslaved Minotaur", 130000);
-            Position chaosDwarfMinotaurs = new Position("Big Guys", 1);
-            chaosDwarfMinotaurs.players.Add(chaosDwarfMinotaur);
-            chaosDwarfs.positions.Add(chaosDwarfLinemen);
-            chaosDwarfs.positions.Add(chaosDwarfBlockers);
-            chaosDwarfs.positions.Add(bullCentaurs);
-            chaosDwarfs.positions.Add(chaosDwarfMinotaurs);
-            Teams.Add(chaosDwarfs);
-
             Team darkElves = new Team("Dark Elves", 50000, true);
-            Player darkElfLino = new Player("Dark Elf Lineman", 70000);
+            Player darkElfLino = new Player("Dark Elf Lineman", 65000);
             Position darkElfLinos = new Position("Linemen", 12);
             darkElfLinos.players.Add(darkElfLino);
             darkElves.positions.Add(darkElfLinos);
@@ -357,15 +338,15 @@ namespace TeamDefinitions
             Position darkElfRunners = new Position("Runners", 2);
             darkElfRunners.players.Add(darkElfRunner);
             darkElves.positions.Add(darkElfRunners);
-            Player darkElfBlitzer = new Player("Dark Elf Blitzer", 100000);
-            Position darkElfBlitzers = new Position("Blitzers", 4);
+            Player darkElfBlitzer = new Player("Dark Elf Blitzer", 105000);
+            Position darkElfBlitzers = new Position("Blitzers", 2);
             darkElfBlitzers.players.Add(darkElfBlitzer);
             darkElves.positions.Add(darkElfBlitzers);
             Player witchElf = new Player("Witch Elf", 110000);
             Position witchElves = new Position("Witch Elves", 2);
             witchElves.players.Add(witchElf);
             darkElves.positions.Add(witchElves);
-            Player assassin = new Player("Assassin", 85000);
+            Player assassin = new Player("Assassin", 90000);
             Position assassins = new Position("Assassins", 2);
             assassins.players.Add(assassin);
             darkElves.positions.Add(assassins);
