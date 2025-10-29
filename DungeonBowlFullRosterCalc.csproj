@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="legacy-season-2\Program.cs" />
+    <Compile Remove="legacy-season-2\TeamDefinitions.cs" />
+  </ItemGroup>
+
 </Project>
