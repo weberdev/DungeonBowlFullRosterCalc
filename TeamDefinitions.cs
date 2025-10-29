@@ -321,7 +321,7 @@ namespace TeamDefinitions
             Player pirahnaWarriorBlitzer = new Player("Piranha Warrior Blitzer", 90000);
             amazonBlitzers.players.Add(pirahnaWarriorBlitzer);
             amazons.positions.Add(amazonBlitzers);
-            Player pythonWarriorThrower = new Player("Python Warrior Thrower", 75000);
+            Player pythonWarriorThrower = new Player("Python Warrior Thrower", 80000);
             amazonThrowers.players.Add(pythonWarriorThrower);
             amazons.positions.Add(amazonThrowers);
             Player jaguarWarriorBlocker = new Player("Jaguar Warrior Blocker", 110000);
@@ -971,7 +971,7 @@ namespace TeamDefinitions
             Player CDStabbers = new Player("Hobgoblin Sneaky Stabba", 70000);
             Position CDStabs = new Position("Stabba", 2);
             CDStabs.players.Add(CDStabbers);
-            ChaosDwarfs.positions.Add(CDStabbers);
+            ChaosDwarfs.positions.Add(CDStabs);
             Player ChaosDwarfBlockers = new Player("Chaos Dwarf Blocker", 70000);
             Position CDBLockers = new Position("Blockers", 4);
             CDBLockers.players.Add(ChaosDwarfBlockers);
@@ -981,9 +981,9 @@ namespace TeamDefinitions
             Flamesmiths.players.Add(Flamesmith);
             ChaosDwarfs.positions.Add(Flamesmiths);
             Player BullCentaurs = new Player("Bull Centaur", 130000);
-            Position BlCentaurs = new Positions("Bull Centaurs", 2);
+            Position BlCentaurs = new Position("Bull Centaurs", 2);
             BlCentaurs.players.Add(BullCentaurs);
-            ChaosDwarfs.positions.AddRange(BullCentaurs);
+            ChaosDwarfs.positions.Add(BlCentaurs);
             Player EnslavedMinotaur = new Player("Enslaved Minotaur", 150000);
             Position CDMinotaurs = new Position("Minotaurs", 1);
             CDMinotaurs.players.Add(EnslavedMinotaur);
