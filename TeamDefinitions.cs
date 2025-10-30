@@ -695,6 +695,22 @@ namespace TeamDefinitions
             bretKnights.players.Add(bretKnight);
             Bretonnians.positions.Add(bretKnights);
 
+            Team TombKings = new Team("Tomb Kings", 60000, false);
+            Position TKLinos = new Position("Lineman", 16);
+            TKLinos.players.Add(skeleton);
+            TombKings.positions.Add(TKLinos);
+            Player TKThrower = new Player("Tomb Kings Thrower", 65000);
+            Position TKThrowers = new Position("Thrower", 2);
+            TKThrowers.players.Add(TKThrower);
+            TombKings.positions.Add(TKThrowers);
+            Player TKBlitzer = new Player("Tomb Kings Blitzer", 85000);
+            Position TKBlitzers = new Position("Blitzer", 2);
+            TKBlitzers.players.Add(TKBlitzer);
+            TombKings.positions.Add(TKBlitzers);
+            Player TombGuardian = new Player("Tomb Guardian", 115000);
+            Position TKBigGuys = new Position("Big Guys", 4);
+            TKBigGuys.players.Add(TombGuardian);
+            TombKings.positions.Add(TKBigGuys);
             return Teams;
         }
     }
