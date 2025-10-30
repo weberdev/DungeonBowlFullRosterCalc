@@ -674,6 +674,10 @@ namespace TeamDefinitions
             Position spookyBlitzers = new Position("Blitzers", 2);
             spookyBlitzers.players.Add(wraith);
             necromanticHorror.positions.Add(spookyBlitzers);
+            Player werewolf = new Player("Werewolf", 125000);
+            Position spookyCatchers = new Position("Catchers", 2);
+            spookyCatchers.players.Add(werewolf);
+            necromanticHorror.positions.Add(spookyCatchers);
             Player fleshGolem = new Player("Flesh Golem", 115000);
             Position spookyBlockers = new Position("Blockers", 2);
             spookyBlockers.players.Add(fleshGolem);
