@@ -462,7 +462,7 @@ namespace TeamDefinitions
             Position skavenLinemen = new Position("Linemen", 16);
             skavenLinemen.players.Add(skavenLineman);
             skaven.positions.Add(skavenLinemen);
-            Player skavenThrower = new Player("Skaven Thrower", 75000);
+            Player skavenThrower = new Player("Skaven Thrower", 80000);
             Position skavenThrowers = new Position("Throwers", 2);
             skavenThrowers.players.Add(skavenThrower);
             skaven.positions.Add(skavenThrowers);
@@ -471,7 +471,7 @@ namespace TeamDefinitions
             skavenBlitzers.players.Add(skavenBlitzer);
             skaven.positions.Add(skavenBlitzers);
             Player gutterRunner = new Player("Gutter Runner", 85000);
-            Position skavenRunners = new Position("Runners", 4);
+            Position skavenRunners = new Position("Runners", 2);
             skavenRunners.players.Add(gutterRunner);
             skaven.positions.Add(skavenRunners);
             Player ratOgre = new Player("Rat Ogre", 150000);
