@@ -803,7 +803,7 @@ namespace TeamDefinitions
             shamblingUndead.positions.Add(mummies);
             Teams.Add(shamblingUndead);
 
-            Team snotlingTeam = new Team("Snotlings", 60000, true);
+            Team snotlingTeam = new Team("Snotlings", 70000, true);
             Player snotLino = new Player("Snotling Lineman", 15000, 0);
             Position snotLin = new Position("Linemen", 16);
             snotLin.players.Add(snotLino);
@@ -820,7 +820,7 @@ namespace TeamDefinitions
             Position stilty = new Position("Stilty Runnas", 2);
             stilty.players.Add(stiltyRunna);
             snotlingTeam.positions.Add(stilty);
-            Player pumpWagon = new Player("Pump Wagon", 105000);
+            Player pumpWagon = new Player("Pump Wagon", 100000);
             Position wagons = new Position("Pump Wagons", 2);
             wagons.players.Add(pumpWagon);
             snotlingTeam.positions.Add(wagons);
