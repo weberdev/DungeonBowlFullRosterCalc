@@ -7,14 +7,10 @@ Team activeTeam = new Team("defaultTeam", 50000, false);
 Console.WriteLine("Greetings, sports fans!\n");
 TeamDefiners holder = new TeamDefiners();
 List<Team> bloodBowlTeams = holder.defineBloodBowlTeams();
-List<Team> dungeonBowlTeams = holder.defineDungeonBowlTeams();
-List<Team> allTeams = dungeonBowlTeams.Concat(bloodBowlTeams).ToList();
+
 bloodBowlTeams = bloodBowlTeams.OrderBy(team => team.name).ToList();
-dungeonBowlTeams = dungeonBowlTeams.OrderBy(team => team.name).ToList();
 List<List<Team>> fullTeamLists = new List<List<Team>>();
 fullTeamLists.Add(bloodBowlTeams);
-fullTeamLists.Add(dungeonBowlTeams);
-fullTeamLists.Add(allTeams);
 
 
 processTeamList(bloodBowlTeams);
