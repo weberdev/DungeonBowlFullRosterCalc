@@ -597,6 +597,7 @@ namespace TeamDefinitions
             GoblinTeam.positions.Add(divers);
             Teams.Add(GoblinTeam);
 
+            //costs unchanged. Skills may differ.
             Team HalflingTeam = new Team("Halflings", 60000, true);
             Position halflinos = new Position("Halfling Linemen", 16);
             halflinos.players.Add(humanHalfling);
