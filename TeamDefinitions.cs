@@ -895,7 +895,7 @@ namespace TeamDefinitions
             Position kgors = new Position("Khorngors", 4);
             kgors.players.Add(khorngor);
             khorne.positions.Add(kgors);
-            Player bloodseeker = new Player("Bloodseeker", 110000);
+            Player bloodseeker = new Player("Bloodseeker", 105000);
             Position seekers = new Position("Bloodseekers", 4);
             seekers.players.Add(bloodseeker);
             khorne.positions.Add(seekers);
