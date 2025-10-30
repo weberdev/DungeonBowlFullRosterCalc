@@ -377,14 +377,14 @@ namespace TeamDefinitions
 
 
             Team elvenUnion = new Team("Elven Union", 50000, true);
-            Player unionLineman = new Player("Union Lineman", 60000);
+            Player unionLineman = new Player("Union Lineman", 65000);
             Player unionCatcher = new Player("Union Catcher", 100000);
             Player unionThrower = new Player("Union Thrower", 75000);
             Player unionBlitzer = new Player("Union Blitzer", 115000);
             Position unionLinos = new Position("Linemen", 12);
             unionLinos.players.Add(unionLineman);
             elvenUnion.positions.Add(unionLinos);
-            Position unionCatchers = new Position("Catchers", 4);
+            Position unionCatchers = new Position("Catchers", 2);
             unionCatchers.players.Add(unionCatcher);
             elvenUnion.positions.Add(unionCatchers);
             Position unionThrowers = new Position("Throwers", 2);
