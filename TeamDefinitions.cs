@@ -615,12 +615,12 @@ namespace TeamDefinitions
             HalflingTeam.positions.Add(halflingTrees);
             Teams.Add(HalflingTeam);
 
-            Team imperialNobility = new Team("Imperial Nobility", 70000, true);
+            Team imperialNobility = new Team("Imperial Nobility", 60000, true);
             Player nobilityLineman = new Player("Imperial Retainer Lineman", 45000);
             Position nobilityLinos = new Position("Linemen", 16);
             nobilityLinos.players.Add(nobilityLineman);
             imperialNobility.positions.Add(nobilityLinos);
-            Player nobilityBlitzer = new Player("Noble Blitzer", 105000);
+            Player nobilityBlitzer = new Player("Noble Blitzer", 90000);
             Position nobLitzers = new Position("Blitzers", 2);
             nobLitzers.players.Add(nobilityBlitzer);
             imperialNobility.positions.Add(nobLitzers);
@@ -628,7 +628,7 @@ namespace TeamDefinitions
             Position nobThrowers = new Position("Throwers", 2);
             nobThrowers.players.Add(nobleThrower);
             imperialNobility.positions.Add(nobThrowers);
-            Player bodyguard = new Player("Bodyguard", 90000);
+            Player bodyguard = new Player("Bodyguard", 85000);
             Position nobBG = new Position("Bodyguards", 4);
             nobBG.players.Add(bodyguard);
             imperialNobility.positions.Add(nobBG);
