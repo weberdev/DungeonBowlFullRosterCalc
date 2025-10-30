@@ -783,17 +783,17 @@ namespace TeamDefinitions
             Teams.Add(orcTeam);
 
             Team shamblingUndead = new Team("Shambling Undead", 70000, false);
-            Position zombieLinos = new Position("Zombies", 12);
+            Position zombieLinos = new Position("Zombies", 16);
             zombieLinos.players.Add(Zombie);
             Player skeleton = new Player("Skeleton Lineman", 40000);
-            Position skeletonLinos = new Position("Skeletons", 12);
+            Position skeletonLinos = new Position("Skeletons", 16);
             skeletonLinos.players.Add(skeleton);
             shamblingUndead.positions.Add(skeletonLinos);
             shamblingUndead.positions.Add(zombieLinos);
-            Position shambleRunners = new Position("Runners", 4);
+            Position shambleRunners = new Position("Runners", 2);
             shambleRunners.players.Add(ghoulRunner);
             shamblingUndead.positions.Add(shambleRunners);
-            Player wightBlitzer = new Player("Wight Blitzer", 90000);
+            Player wightBlitzer = new Player("Wight Blitzer", 95000);
             Position shamblitz = new Position("Blitzers", 2);
             shamblitz.players.Add(wightBlitzer);
             shamblingUndead.positions.Add(shamblitz);
