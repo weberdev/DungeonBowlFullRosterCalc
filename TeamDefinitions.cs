@@ -480,18 +480,18 @@ namespace TeamDefinitions
 
             Team woodElves = new Team("Wood Elves", 50000, true);
             Player woodElfLineman = new Player("Wood Elf Lineman", 70000);
-            Position woodElfLinemen = new Position("Linemen", 12);
+            Position woodElfLinemen = new Position("Linemen", 16);
             woodElfLinemen.players.Add(woodElfLineman);
             woodElves.positions.Add(woodElfLinemen);
-            Player woodElfThrower = new Player("Wood Elf Thrower", 95000);
+            Player woodElfThrower = new Player("Wood Elf Thrower", 85000);
             Position woodElfThrowers = new Position("Throwers", 2);
             woodElfThrowers.players.Add(woodElfThrower);
             woodElves.positions.Add(woodElfThrowers);
             Player woodElfCatcher = new Player("Wood Elf Catcher", 90000);
-            Position woodElfCatchers = new Position("Catchers", 4);
+            Position woodElfCatchers = new Position("Catchers", 2);
             woodElfCatchers.players.Add(woodElfCatcher);
             woodElves.positions.Add(woodElfCatchers);
-            Player wardancer = new Player("Wardancer", 125000);
+            Player wardancer = new Player("Wardancer", 130000);
             Position wardancers = new Position("Wardancers", 2);
             wardancers.players.Add(wardancer);
             woodElves.positions.Add(wardancers);
