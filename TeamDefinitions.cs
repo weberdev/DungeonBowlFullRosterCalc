@@ -501,13 +501,13 @@ namespace TeamDefinitions
             woodElves.positions.Add(woodElfTreemen);
             Teams.Add(woodElves);
 
-            Team ChaosChosen = new Team("Chaos Chosen", 60000, true);
+            Team ChaosChosen = new Team("Chaos Chosen", 50000, true);
             Player chaosBeastman = new Player("Beastman Lineman", 60000);
             Position chaosLinos = new Position("Linemen", 16);
             chaosLinos.players.Add(chaosBeastman);
             ChaosChosen.positions.Add(chaosLinos);
             Player chosenBlocker = new Player("Chosen Blocker", 100000);
-            Position chaosBlockers = new Position("Blockers", 6);
+            Position chaosBlockers = new Position("Blockers", 4);
             chaosBlockers.players.Add(chosenBlocker);
             ChaosChosen.positions.Add(chaosBlockers);
             Player chaosTroll = new Player("Chaos Troll", 115000);
