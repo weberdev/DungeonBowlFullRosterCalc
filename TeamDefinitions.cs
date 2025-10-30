@@ -637,10 +637,10 @@ namespace TeamDefinitions
 
             Team lizardmanTeam = new Team("Lizardmen", 70000, true);
             Player skink = new Player("Skink Runner Lineman", 60000);
-            Position lineLizards = new Position("Linemen", 12);
+            Position lineLizards = new Position("Linemen", 16);
             lineLizards.players.Add(skink);
             lizardmanTeam.positions.Add(lineLizards);
-            Player Saurus = new Player("Saurus Blocker", 85000);
+            Player Saurus = new Player("Saurus Blocker", 90000);
             Position lizardBl = new Position("Blockers", 6);
             lizardBl.players.Add(Saurus);
             lizardmanTeam.positions.Add(lizardBl);
