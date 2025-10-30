@@ -695,7 +695,8 @@ namespace TeamDefinitions
             nBigGuy.players.Add(rotspawn);
             nurgle.positions.Add(nBigGuy);
             Teams.Add(nurgle);
-
+            
+            //Ogres: No changes.
             Team ogreTeam = new Team("Ogres", 70000, true);
             Player gnoblarLineman = new Player("Gnoblar Lineman", 15000, 0);
             Position ogreLinos = new Position("Linemen", 16);
