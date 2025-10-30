@@ -677,17 +677,17 @@ namespace TeamDefinitions
             necromanticHorror.positions.Add(spookyBlockers);
             Teams.Add(necromanticHorror);
 
-            Team nurgle = new Team("Nurgle", 70000, false);
-            Player Rotter = new Player("Rotter Lineman", 35000);
+            Team nurgle = new Team("Nurgle", 60000, false);
+            Player Rotter = new Player("Rotter Lineman", 40000);
             Position nurglinos = new Position("Linemen", 12);
             nurglinos.players.Add(Rotter);
             nurgle.positions.Add(nurglinos);
-            Player Bloater = new Player("Bloater", 115000);
+            Player Bloater = new Player("Bloater", 110000);
             Position nurgleBlockers = new Position("Blockers", 4);
             nurgleBlockers.players.Add(Bloater);
             nurgle.positions.Add(nurgleBlockers);
-            Player pestigor = new Player("Pestigor", 75000);
-            Position nurgleRunner = new Position("Runner", 4);
+            Player pestigor = new Player("Pestigor", 70000);
+            Position nurgleRunner = new Position("Runner", 2);
             nurgleRunner.players.Add(pestigor);
             nurgle.positions.Add(nurgleRunner);
             Player rotspawn = new Player("Rotspawn", 140000);
