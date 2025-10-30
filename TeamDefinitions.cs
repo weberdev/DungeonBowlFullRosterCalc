@@ -975,7 +975,26 @@ namespace TeamDefinitions
             Position CDMinotaurs = new Position("Minotaurs", 1);
             CDMinotaurs.players.Add(EnslavedMinotaur);
             ChaosDwarfs.positions.Add(CDMinotaurs);
-            Teams.Add(ChaosDwarfs);          
+            Teams.Add(ChaosDwarfs);
+
+            Team Bretonnians = new Team("Bretonnians", 60000, true);
+            Player bretLino = new Player("Betonnian Squire", 50000);
+            Position BretLinos = new Position("Lineman", 16);
+            BretLinos.players.Add(bretLino);
+            Bretonnians.positions.Add(BretLinos);
+            Player bretCatcher = new Player("Bretonnian Knight Catcher", 85000);
+            Position bretCatchers = new Position("Catcher", 2);
+            bretCatchers.players.Add(bretCatcher);
+            Bretonnians.positions.Add(bretCatchers);
+            Player bretThrower = new Player("Bretonnian Knight THrower", 80000);
+            Position BretThrowers = new Position("Thrower", 2);
+            BretThrowers.players.Add(bretThrower);
+            Bretonnians.positions.Add(BretThrowers);
+            Player bretKnight = new Player("Grail Knight", 95000);
+            Position bretKnights = new Position("Blitzer", 2);
+            bretKnights.players.Add(bretKnight);
+            Bretonnians.positions.Add(bretKnights);
+
             return Teams;
         }
     }
