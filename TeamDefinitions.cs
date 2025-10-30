@@ -541,7 +541,7 @@ namespace TeamDefinitions
             Position rGoblinz = new Position("Goblin", 1);
             rGoblinz.players.Add(renegadeGoblin);
             ChaosRenegades.positions.Add(rGoblinz);
-            Player renegadeDarkElf = new Player("Renegade Dark Elf", 75000);
+            Player renegadeDarkElf = new Player("Renegade Dark Elf", 65000);
             Position renElf = new Position("Dark Elf", 1);
             renElf.players.Add(renegadeDarkElf);
             ChaosRenegades.positions.Add(renElf);
@@ -587,11 +587,11 @@ namespace TeamDefinitions
             Position pogoers = new Position("Pogoers", 1);
             pogoers.players.Add(Pogoer);
             GoblinTeam.positions.Add(pogoers);
-            Player ooligan = new Player("'ooligan", 65000);
+            Player ooligan = new Player("'ooligan", 60000);
             Position olgns = new Position("'Ooligans", 1);
             olgns.players.Add(ooligan);
             GoblinTeam.positions.Add(olgns);
-            Player doomDiver = new Player("Doom Diver", 60000);
+            Player doomDiver = new Player("Doom Diver", 65000);
             Position divers = new Position("Doom Divers", 1);
             divers.players.Add(doomDiver);
             GoblinTeam.positions.Add(divers);
