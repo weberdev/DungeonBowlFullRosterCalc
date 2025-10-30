@@ -21,11 +21,16 @@ namespace TeamDefinitions
             Position fireRunners = new Position("Runners", 2);
             fireRunners.players.Add(dwarfRunner);
             Player trollSlayer = new Player("Trollslayer", 95000);
+            Player flameSmith = new Player("Chaos Dwarf flamesmith", 80000);
             Player dwarfBlitzer = new Player("Dwarf Blitzer", 80000);
             Position fireblitzers = new Position("Blitzers", 2);
             fireblitzers.players.Add(dwarfBlitzer);
             Position fireSpecial = new Position("Special", 2);
             fireSpecial.players.Add(trollSlayer);
+            fireSpecial.players.Add(flameSmith);
+            Player CDBlocker = new Player("Chaos Dwarf Blocker", 70000);
+            Position fireBlockers = new Position("Blockers", 4);
+            fireBlockers.players.Add(CDBlocker);
             Player ogreBlocker = new Player("Ogre Blocker", 140000);
             Player ogreRuntPunter = new Player("Ogre Runt Punter", 145000);
             Position fireBigGuys = new Position("Big Guys", 3);
@@ -35,6 +40,7 @@ namespace TeamDefinitions
             fire.positions.Add(fireBigGuys);
             fire.positions.Add(fireblitzers);
             fire.positions.Add(firelinos);
+            fire.positions.Add(fireBlockers);
             fire.positions.Add(fireRunners);
             fire.positions.Add(fireSpecial);
             Teams.Add(fire);
@@ -49,10 +55,12 @@ namespace TeamDefinitions
             Player skavenLino = new Player("Skaven Lineman", 50000);
             Player goblinLino = new Player("Goblin Lineman", 40000);
             Player gnomeLino = new Player("Gnome Lineman", 40000);
+            Player hobgobLino = new Player("Hobgoblin Lineman", 40000);
             shadowLinos.players.Add(darkElfLino);
             shadowLinos.players.Add(skavenLino);
             shadowLinos.players.Add(goblinLino);
             shadowLinos.players.Add(gnomeLino);
+            shadowLinos.players.Add(hobgobLino);
             Player gutterRunner = new Player("Gutter Runner", 85000);
             Player darkElfRunner = new Player("Dark Elf Runner", 80000);
             Player woodlandFox = new Player("Woodland Fox", 50000);
@@ -70,9 +78,11 @@ namespace TeamDefinitions
             Player witchElf = new Player("Witch Elf", 110000);
             Player assassin = new Player("Assassin", 85000);
             Player gnomeBeastmaster = new Player("Gnome Beastmaster", 55000);
+            Player sneakyStabba = new Player("Hobgoblin Sneaky Stabba", 70000);
             shadowSpecial.players.Add(assassin);
             shadowSpecial.players.Add(witchElf);
             shadowSpecial.players.Add(gnomeBeastmaster);
+            shadowSpecial.players.Add(sneakyStabba);
             Team shadow = new Team("College of Shadow", 50000);
             shadow.positions.Add(shadowLinos);
             shadow.positions.Add(shadowRunners);
@@ -174,10 +184,6 @@ namespace TeamDefinitions
             Position deathThrowers = new Position("Throwers", 2);
             deathThrowers.players.Add(vampireThrower);
             death.positions.Add(deathThrowers);
-
-
-
-
             Teams.Add(death);
 
             Team life = new Team("College of Life", 50000);
@@ -244,8 +250,10 @@ namespace TeamDefinitions
             beasts.positions.Add(beastsRunners);
             Player pestigor = new Player("Pestigor", 75000);
             Player khorngor = new Player("Khorngor", 60000);
+            Player bullCentaur = new Player("Bull Centaur Blitzer", 130000);
             beastsBlitzers.players.Add(pestigor);
             beastsBlitzers.players.Add(khorngor);
+            beastsBlitzers.players.Add(bullCentaur);
             beasts.positions.Add(beastsBlitzers);
             Player chosenBlocker = new Player("Chosen Blocker", 100000);
             Player ulfwerener = new Player("Ulfwerener", 105000);
@@ -328,25 +336,6 @@ namespace TeamDefinitions
             amazonBlockers.players.Add(jaguarWarriorBlocker);
             amazons.positions.Add(amazonBlockers);
             Teams.Add(amazons);
-
-            Team chaosDwarfs = new Team("Chaos Dwarfs", 50000, true);
-            Player hobgoblinLineman = new Player("Hobgoblin Lineman", 40000);
-            Position chaosDwarfLinemen = new Position("Linemen", 16);
-            chaosDwarfLinemen.players.Add(hobgoblinLineman);
-            Player chaosDwarfBlocker = new Player("Chaos Dwarf Blocker", 70000);
-            Position chaosDwarfBlockers = new Position("Blockers", 6);
-            chaosDwarfBlockers.players.Add(chaosDwarfBlocker);
-            Player bullCentaur = new Player("Bull Centaur", 130000);
-            Position bullCentaurs = new Position("Bull Centaurs", 2);
-            bullCentaurs.players.Add(bullCentaur);
-            Player chaosDwarfMinotaur = new Player("Enslaved Minotaur", 130000);
-            Position chaosDwarfMinotaurs = new Position("Big Guys", 1);
-            chaosDwarfMinotaurs.players.Add(chaosDwarfMinotaur);
-            chaosDwarfs.positions.Add(chaosDwarfLinemen);
-            chaosDwarfs.positions.Add(chaosDwarfBlockers);
-            chaosDwarfs.positions.Add(bullCentaurs);
-            chaosDwarfs.positions.Add(chaosDwarfMinotaurs);
-            Teams.Add(chaosDwarfs);
 
             Team darkElves = new Team("Dark Elves", 50000, true);
             Player darkElfLino = new Player("Dark Elf Lineman", 70000);
@@ -989,9 +978,7 @@ namespace TeamDefinitions
             CDMinotaurs.players.Add(EnslavedMinotaur);
             ChaosDwarfs.positions.Add(CDMinotaurs);
             Teams.Add(ChaosDwarfs);
-            //these numbers will need to be updated.
-            //almost midnight, commiting somethign for the day
-            //chaso dwarfs still have no gold values, please GW, PLEASE
+
           
             return Teams;
         }
