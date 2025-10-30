@@ -443,7 +443,7 @@ namespace TeamDefinitions
             Teams.Add(humans);
 
             Team blackOrcs = new Team("Black Orcs", 60000, true);
-            Position blOrcLinos = new Position("Linemen", 12);
+            Position blOrcLinos = new Position("Linemen", 16);
             Player goblinBruiserLineman = new Player("Goblin Bruiser Lineman", 45000);
             blOrcLinos.players.Add(goblinBruiserLineman);
             Player blackOrc = new Player("Black Orc", 90000);
