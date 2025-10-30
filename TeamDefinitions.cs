@@ -384,7 +384,7 @@ namespace TeamDefinitions
             Position unionLinos = new Position("Linemen", 12);
             unionLinos.players.Add(unionLineman);
             elvenUnion.positions.Add(unionLinos);
-            Position unionCatchers = new Position("Catchers", 2);
+            Position unionCatchers = new Position("Catchers", 4);
             unionCatchers.players.Add(unionCatcher);
             elvenUnion.positions.Add(unionCatchers);
             Position unionThrowers = new Position("Throwers", 2);
@@ -395,7 +395,7 @@ namespace TeamDefinitions
             elvenUnion.positions.Add(unionBlitzers);
             Teams.Add(elvenUnion);
 
-
+            //High Elves are coming Soon TM.
             Team highElves = new Team("High Elves", 50000, true);
             Player highElfLineman = new Player("High Elf Lineman", 70000);
             Position highElfLinemen = new Position("Linemen", 16);
