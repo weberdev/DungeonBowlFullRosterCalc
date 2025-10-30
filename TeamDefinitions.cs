@@ -950,7 +950,7 @@ namespace TeamDefinitions
             Gnomes.positions.Add(gnomeFoxes);
             Teams.Add(Gnomes);
 
-            Team ChaosDwarfs = new Team("Chaos Dwarfs", 60000, true);
+            Team ChaosDwarfs = new Team("Chaos Dwarfs", 70000, true);
             Player hobgobLino = new Player("Hobgoblin Lineman", 40000);
             Position CDLinos = new Position("Lineman", 16);
             CDLinos.players.Add(hobgobLino);
@@ -975,11 +975,7 @@ namespace TeamDefinitions
             Position CDMinotaurs = new Position("Minotaurs", 1);
             CDMinotaurs.players.Add(EnslavedMinotaur);
             ChaosDwarfs.positions.Add(CDMinotaurs);
-            Teams.Add(ChaosDwarfs);
-            //these numbers will need to be updated.
-            //almost midnight, commiting somethign for the day
-            //chaso dwarfs still have no gold values, please GW, PLEASE
-          
+            Teams.Add(ChaosDwarfs);          
             return Teams;
         }
     }
