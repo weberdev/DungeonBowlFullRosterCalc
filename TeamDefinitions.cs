@@ -663,11 +663,15 @@ namespace TeamDefinitions
             Position necromanticRunners = new Position("Runners", 2);
             necromanticRunners.players.Add(ghoulRunner);
             necromanticHorror.positions.Add(necromanticRunners);
-            Player wraith = new Player("Wraith", 95000);
+            Player wraith = new Player("Wraith", 85000);
             Position spookyBlitzers = new Position("Blitzers", 2);
             spookyBlitzers.players.Add(wraith);
             necromanticHorror.positions.Add(spookyBlitzers);
-            Player fleshGolem = new Player("Flesh Golem", 115000);
+            Player fleshGolem = new Player("Flesh Golem", 110000);
+            Player wereWolf = new Player("Werewolf", 120000);
+            Position spookyWoofs = new Position("Receivers", 2);
+            spookyWoofs.players.Add(wereWolf);
+            necromanticHorror.positions.Add(spookyWoofs);
             Position spookyBlockers = new Position("Blockers", 2);
             spookyBlockers.players.Add(fleshGolem);
             necromanticHorror.positions.Add(spookyBlockers);
