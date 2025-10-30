@@ -831,7 +831,7 @@ namespace TeamDefinitions
 
             Team underworldDenizens = new Team("Underworld Denizens", 70000, true);
             Player undGoblin = new Player("Underworld Goblin Lineman", 40000);
-            Position undLinos = new Position("Linemen", 12);
+            Position undLinos = new Position("Linemen", 16);
             undLinos.players.Add(undGoblin);
             underworldDenizens.positions.Add(undLinos);
             Player undSnot = new Player("Underworld Snotling", 15000);
