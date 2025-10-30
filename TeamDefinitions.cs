@@ -501,6 +501,7 @@ namespace TeamDefinitions
             woodElves.positions.Add(woodElfTreemen);
             Teams.Add(woodElves);
 
+            //Illegible.
             Team ChaosChosen = new Team("Chaos Chosen", 50000, true);
             Player chaosBeastman = new Player("Beastman Lineman", 60000);
             Position chaosLinos = new Position("Linemen", 16);
