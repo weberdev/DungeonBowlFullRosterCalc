@@ -352,10 +352,10 @@ namespace TeamDefinitions
             darkElves.positions.Add(assassins);
             Teams.Add(darkElves);
 
-            Team dwarfs = new Team("Dwarfs", 50000, true);
+            Team dwarfs = new Team("Dwarfs", 60000, true);
             Player dwarfLino = new Player("Dwarf Lineman", 70000);
-            Player dwarfRunner = new Player("Dwarf Runner", 85000);
-            Player dwarfBlitzer = new Player("Dwarf Blitzer", 80000);
+            Player dwarfRunner = new Player("Dwarf Runner", 80000);
+            Player dwarfBlitzer = new Player("Dwarf Blitzer", 100000);
             Player trollSlayer = new Player("Trollslayer", 95000);
             Player deathroller = new Player("Deathroller", 170000);
             Position roller = new Position("Deathroller", 1);
