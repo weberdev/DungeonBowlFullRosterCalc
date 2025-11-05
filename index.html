@@ -1,5 +1,43 @@
-<!doctype HTML>
-<title>Blood Bowl Combinatorics</title>
+﻿<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BB Roster Builder</title>
 <link rel="stylesheet" href="styles.css">
-<div class="wrap"></div>
-</html>
+<header>
+    <h1>Blood Bowl Roster Builder</h1>
+    <p class="sub">Season 3 • deterministic • static JSON</p>
+</header>
+
+<section class="controls">
+    <label>Edition <select id="edition"></select></label>
+    <label>Team <input id="team" list="teams" placeholder="Type team"><datalist id="teams"></datalist></label>
+    <label>Budget <input id="budget" type="number" step="50" value="1000"></label>
+    <label>Limit <input id="limit" type="number" value="50"></label>
+</section>
+
+<section class="actions">
+    <button id="btn-generate">Generate</button>
+    <button id="btn-random">Randomize</button>
+    <button id="btn-dump">Dump All</button>
+    <button id="btn-copy">Copy Link</button>
+    <div class="menu">
+        <button id="btn-export">Export ▼</button>
+        <div class="menu-list" hidden>
+            <button id="exp-json">Export JSON</button>
+            <button id="exp-csv">Export CSV</button>
+        </div>
+    </div>
+</section>
+
+<section id="status" class="status">Pick a team and budget, then Generate.</section>
+
+<nav class="tabs">
+    <button data-tab="random" class="active">Random pick</button>
+    <button data-tab="all">All rosters</button>
+</nav>
+
+<section id="tab-random" class="tab active"><div id="random-card"></div></section>
+<section id="tab-all" class="tab"><table id="table"><thead><tr><th>#</th><th>Roster</th><th>TV</th><th>RR</th><th>Apo</th></tr></thead><tbody></tbody></table><div id="pager"></div></section>
+
+<footer id="prov">Data: –</footer>
+<script src="app.js"></script>

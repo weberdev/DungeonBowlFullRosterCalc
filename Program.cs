@@ -12,6 +12,8 @@ bloodBowlTeams = bloodBowlTeams.OrderBy(team => team.name).ToList();
 List<List<Team>> fullTeamLists = new List<List<Team>>();
 fullTeamLists.Add(bloodBowlTeams);
 
+Console.WriteLine("Listing all teams.");
+handleTeam(chooseTeam(allTeams));
 
 processTeamList(bloodBowlTeams);
 
