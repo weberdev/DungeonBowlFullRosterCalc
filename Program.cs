@@ -13,7 +13,7 @@ List<List<Team>> fullTeamLists = new List<List<Team>>();
 fullTeamLists.Add(bloodBowlTeams);
 
 Console.WriteLine("Listing all teams.");
-handleTeam(chooseTeam(allTeams));
+//handleTeam(chooseTeam(allTeams));
 
 processTeamList(bloodBowlTeams);
 
