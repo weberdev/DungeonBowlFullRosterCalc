@@ -466,7 +466,7 @@ namespace TeamDefinitions
             orcBli.players.Add(orcBlitzer);
             orcTeam.positions.Add(orcBli);
             Player orcBlocker = new Player("Big Un Blocker", 95000);
-            Position orcBL = new Position("Blocker", 4);
+            Position orcBL = new Position("Blocker", 2);
             orcBL.players.Add(orcBlocker);
             orcTeam.positions.Add(orcBL);
             Player orcThrower = new Player("Orc Thrower", 75000);
