@@ -512,6 +512,8 @@ public class Roster
                 apoLeftCash -= apoPotRerolls * raceOrCollege.rerollValue;
                 if (apoLeftCash >= 10000)
                 {
+                    //I need to adjust this. 
+                    //TODO: REWRITE TO CAP OF THREE DEDICATED FANS AT 5k.
                     Console.WriteLine($"If you take the maximum number of rerolls, you can hire up to {apoLeftCash / 10000} dedicated fans, assistant coaches and cheerleaders.");
                 }
             }
