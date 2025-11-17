@@ -482,6 +482,49 @@ public class Roster
     }
     //This is almost a toString for rosters, if they're acceptable.
     //I'm writing things to a file via stdout right now.
+    public string getSideLineStaff(int budget, Team teamType)
+    {
+        int dedFans = 0;
+        int assCoaches = 0;
+        int cheerleaders = 0;
+        int rerolls = 0;
+        bool apo = false;
+
+        for (int i = 0; i < 2; i++) { 
+            budget -= i*5000; 
+            dedFans = i; 
+            for (int j= 0; j <6; j++)
+            {
+                budget -= j * 10000;
+                assCoaches = j;
+                for (int k =0; k < 6; k++)
+                {
+                    budget -=k *10000
+                        cheerleaders = k;
+                    for (int r=0; r < 8; r++)
+                { budget -= r * teamType.rerollValue;
+                        rerolls = r;
+                        if teamType.apothecary = true{
+                            for (a = 0; a < 1; a++)
+                            {
+                                if (a > 0)
+                                {
+                                    apo = true;
+                                    budget -= 50000;
+                                }
+
+                            }
+                            if (budget >= 0)
+                            {
+                                string output = "";
+                                if
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     public void ShowVerifiedRoster()
     {
         if (checkIfValid())
