@@ -482,49 +482,65 @@ public class Roster
     }
     //This is almost a toString for rosters, if they're acceptable.
     //I'm writing things to a file via stdout right now.
-    public string getSideLineStaff(int budget, Team teamType)
+    public string GetSideLineStaff(int budget, Team teamType)
     {
-        int dedFans = 0;
-        int assCoaches = 0;
-        int cheerleaders = 0;
-        int rerolls = 0;
-        bool apo = false;
+        // 0–2 additional dedicated fans (5k)
+        // 0–6 assistant coaches (10k)
+        // 0–6 cheerleaders (10k)
+        // 0–8 rerolls (teamType.RerollValue)
+        // 0–1 apothecary (50k) if allowed
 
-        for (int i = 0; i < 2; i++) { 
-            budget -= i*5000; 
-            dedFans = i; 
-            for (int j= 0; j <6; j++)
+        string best = "";
+        int bestCost = -1;
+
+        for (int dedFans = 0; dedFans <= 2; dedFans++)
+        {
+            for (int assCoaches = 0; assCoaches <= 6; assCoaches++)
             {
-                budget -= j * 10000;
-                assCoaches = j;
-                for (int k =0; k < 6; k++)
+                for (int cheerleaders = 0; cheerleaders <= 6; cheerleaders++)
                 {
-                    budget -=k *10000
-                        cheerleaders = k;
-                    for (int r=0; r < 8; r++)
-                { budget -= r * teamType.rerollValue;
-                        rerolls = r;
-                        if teamType.apothecary = true{
-                            for (a = 0; a < 1; a++)
-                            {
-                                if (a > 0)
-                                {
-                                    apo = true;
-                                    budget -= 50000;
-                                }
+                    for (int rerolls = 0; rerolls <= 8; rerolls++)
+                    {
+                        int apoMax = teamType.ApothecaryAllowed ? 1 : 0;
 
-                            }
-                            if (budget >= 0)
+                        for (int apo = 0; apo <= apoMax; apo++)
+                        {
+                            int cost =
+                                dedFans * 5000 +
+                                assCoaches * 10000 +
+                                cheerleaders * 10000 +
+                                rerolls * teamType.RerollValue +
+                                apo * 50000;
+
+                            if (cost > budget)
+                                continue; // too expensive
+
+                            // If you just want ANY valid combo, you could return here.
+                            // I'm picking the most expensive valid combo (maximizing spend).
+                            if (cost > bestCost)
                             {
-                                string output = "";
-                                if
+                                bestCost = cost;
+
+                                best =
+                                    $"{(apo == 1 ? "Apothecary: 50000\n" : "")}" +
+                                    $"Rerolls: {rerolls} (each {teamType.RerollValue})\n" +
+                                    $"Dedicated Fans: {dedFans} (5k each)\n" +
+                                    $"Assistant Coaches: {assCoaches} (10k each)\n" +
+                                    $"Cheerleaders: {cheerleaders} (10k each)\n" +
+                                    $"Total sideline cost: {cost}\n" +
+                                    $"Remaining budget: {budget - cost}\n";
                             }
                         }
                     }
                 }
             }
         }
+
+        return bestCost >= 0
+            ? best
+            : "No valid sideline configuration within budget.";
     }
+
     public void ShowVerifiedRoster()
     {
         if (checkIfValid())
