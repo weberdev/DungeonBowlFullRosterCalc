@@ -20,6 +20,65 @@ processTeamList(bloodBowlTeams);
 char choice;
 Console.ReadKey();
 
+public readonly record struct SidelineConfig(
+    bool Apothecary,
+    int Rerolls,
+    int DedicatedFans,
+    int AssistantCoaches,
+    int Cheerleaders,
+    int Cost);
+
+public static class SidelineEnumerator
+{
+    public static IEnumerable<SidelineConfig> EnumerateSidelineConfigs(
+        int budgetRemaining,
+        Team team)
+    {
+        // Caps you described:
+        // apo 0–1, rr 0–8, fans 0–2, coaches 0–6, cheer 0–6
+
+        int rrCost = team.rerollValue;
+        bool apoAllowed = team.apothecary;
+
+        for (int dedFans = 0; dedFans <= 2; dedFans++)
+        {
+            for (int assCoaches = 0; assCoaches <= 6; assCoaches++)
+            {
+                for (int cheer = 0; cheer <= 6; cheer++)
+                {
+                    for (int rerolls = 0; rerolls <= 8; rerolls++)
+                    {
+                        int apoMax = apoAllowed ? 1 : 0;
+
+                        for (int apo = 0; apo <= apoMax; apo++)
+                        {
+                            int cost =
+                                dedFans * 5000 +
+                                assCoaches * 10000 +
+                                cheer * 10000 +
+                                rerolls * rrCost +
+                                apo * 50000;
+
+                            if (cost > budgetRemaining)
+                                continue; // too expensive, but keep exploring other branches
+
+                            yield return new SidelineConfig(
+                                Apothecary: apo == 1,
+                                Rerolls: rerolls,
+                                DedicatedFans: dedFans,
+                                AssistantCoaches: assCoaches,
+                                Cheerleaders: cheer,
+                                Cost: cost
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 Team chooseTeam(List<Team> teamList)
 {
@@ -482,118 +541,74 @@ public class Roster
     }
     //This is almost a toString for rosters, if they're acceptable.
     //I'm writing things to a file via stdout right now.
-    public string GetSideLineStaff(int budget, Team teamType)
-    {
-        // 0–2 additional dedicated fans (5k)
-        // 0–6 assistant coaches (10k)
-        // 0–6 cheerleaders (10k)
-        // 0–8 rerolls (teamType.RerollValue)
-        // 0–1 apothecary (50k) if allowed
 
-        string best = "";
-        int bestCost = -1;
-
-        for (int dedFans = 0; dedFans <= 2; dedFans++)
-        {
-            for (int assCoaches = 0; assCoaches <= 6; assCoaches++)
-            {
-                for (int cheerleaders = 0; cheerleaders <= 6; cheerleaders++)
-                {
-                    for (int rerolls = 0; rerolls <= 8; rerolls++)
-                    {
-                        int apoMax = teamType.ApothecaryAllowed ? 1 : 0;
-
-                        for (int apo = 0; apo <= apoMax; apo++)
-                        {
-                            int cost =
-                                dedFans * 5000 +
-                                assCoaches * 10000 +
-                                cheerleaders * 10000 +
-                                rerolls * teamType.RerollValue +
-                                apo * 50000;
-
-                            if (cost > budget)
-                                continue; // too expensive
-
-                            // If you just want ANY valid combo, you could return here.
-                            // I'm picking the most expensive valid combo (maximizing spend).
-                            if (cost > bestCost)
-                            {
-                                bestCost = cost;
-
-                                best =
-                                    $"{(apo == 1 ? "Apothecary: 50000\n" : "")}" +
-                                    $"Rerolls: {rerolls} (each {teamType.RerollValue})\n" +
-                                    $"Dedicated Fans: {dedFans} (5k each)\n" +
-                                    $"Assistant Coaches: {assCoaches} (10k each)\n" +
-                                    $"Cheerleaders: {cheerleaders} (10k each)\n" +
-                                    $"Total sideline cost: {cost}\n" +
-                                    $"Remaining budget: {budget - cost}\n";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return bestCost >= 0
-            ? best
-            : "No valid sideline configuration within budget.";
-    }
 
     public void ShowVerifiedRoster()
     {
-        if (checkIfValid())
+        // First: is this player-only shell actually legal?
+        if (!checkIfValid())
         {
-            TeamHolder.acceptableRosters++;
-            Console.WriteLine("Acceptable Roster:");
-            Console.Write(GetRoster());
-            Console.WriteLine($"Pre-reroll team cost: {cost.ToString()}");
-            if(cost != value)
-            {
-                Console.WriteLine($"Adjusted Team Value: {value}");
-            }
-            int potentialRerolls = startingBudget - cost;
-            double potrer = potentialRerolls / raceOrCollege.rerollValue;
-            potentialRerolls = (int)Math.Floor(potrer);
-            int leftoverCash = startingBudget - cost;
-            if (leftoverCash >= 50000 && raceOrCollege.apothecary == true)
-            {
-                int apoLeftCash = leftoverCash -= 50000;
-                double apoPotRer = apoLeftCash / raceOrCollege.rerollValue;
-                int apoPotRerolls = (int)Math.Floor(apoPotRer);
-                if (apoPotRerolls > 8)
-                {
-                    Console.WriteLine("You may only take 8 rerolls.");
-                    apoPotRerolls = 8;
-                }
-                Console.WriteLine($"You may take an apothecary. If so, you may take up to {apoPotRerolls} rerolls.");
-                apoLeftCash -= apoPotRerolls * raceOrCollege.rerollValue;
-                if (apoLeftCash >= 10000)
-                {
-                    //I need to adjust this. 
-                    //TODO: REWRITE TO CAP OF THREE DEDICATED FANS AT 5k.
-                    Console.WriteLine($"If you take the maximum number of rerolls, you can hire up to {apoLeftCash / 10000} dedicated fans, assistant coaches and cheerleaders.");
-                }
-            }
-            if (potentialRerolls > 8)
-            {
-                Console.WriteLine("Budget exceeds 8 rerolls, maximum eight allowed.");
-                potentialRerolls = 8;
-            }
-            Console.WriteLine($"Up to {potentialRerolls} rerolls.");
-            int maxRerolls = potentialRerolls * raceOrCollege.rerollValue;
-            if (leftoverCash - maxRerolls >= 10000)
-            {
-                Console.WriteLine($"Assuming no apothecary, if you take the maximum number of rerolls, you may hire up to {(leftoverCash - maxRerolls) / 10000} dedicated fans, assistant coaches, or cheerleaders.");
-            }
-            Console.WriteLine("\n");
+            // If you ever want to log invalid ones, do it here.
+            return;
         }
-        else
+
+        TeamHolder.acceptableRosters++;
+
+        Console.WriteLine("Acceptable Roster:");
+        Console.Write(GetRoster());
+        Console.WriteLine($"Pre-reroll team cost: {cost}");
+
+        if (cost != value)
         {
-            //Console.WriteLine($"Unacceptable Roster: Value: {value}. Players: {playerCount}\n");
+            Console.WriteLine($"Adjusted Team Value: {value}");
         }
+
+        int leftoverCash = startingBudget - cost;
+        Console.WriteLine($"Leftover cash before sideline staff: {leftoverCash}");
+        Console.WriteLine();
+
+        // If for some weird reason printed cost already overshoots the budget,
+        // don't try to enumerate staff for this roster.
+        if (leftoverCash < 0)
+        {
+            Console.WriteLine("Warning: roster cost exceeds starting budget based on printed cost; skipping sideline staff enumeration.");
+            Console.WriteLine();
+            return;
+        }
+
+        // 🔥 Exhaustive sideline enumeration:
+        // requires:
+        //   public readonly record struct SidelineConfig(...)
+        //   public static class SidelineEnumerator { EnumerateSidelineConfigs(...) }
+        foreach (var staff in SidelineEnumerator.EnumerateSidelineConfigs(leftoverCash, raceOrCollege))
+        {
+            Console.WriteLine("---- Sideline configuration ----");
+
+            if (staff.Apothecary)
+            {
+                Console.WriteLine("Apothecary: 50000");
+            }
+            else if (raceOrCollege.apothecary)
+            {
+                Console.WriteLine("Apothecary: none taken (team may take 0–1)");
+            }
+
+            Console.WriteLine($"Rerolls: {staff.Rerolls} (each {raceOrCollege.rerollValue})");
+            Console.WriteLine($"Dedicated Fans: {staff.DedicatedFans} (5k each)");
+            Console.WriteLine($"Assistant Coaches: {staff.AssistantCoaches} (10k each)");
+            Console.WriteLine($"Cheerleaders: {staff.Cheerleaders} (10k each)");
+
+            int totalTeamCost = cost + staff.Cost;
+            int unusedTreasury = startingBudget - totalTeamCost;
+
+            Console.WriteLine($"Total team cost including staff: {totalTeamCost}");
+            Console.WriteLine($"Unused treasury: {unusedTreasury}");
+            Console.WriteLine();
+        }
+
+        Console.WriteLine(); // blank line separating rosters
     }
+
     /*public void ShowVerifiedSevensRoster()
     {
         if (checkIfSevensValid())
