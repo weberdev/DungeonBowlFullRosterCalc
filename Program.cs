@@ -20,6 +20,14 @@ processTeamList(bloodBowlTeams);
 char choice;
 Console.ReadKey();
 
+public static class TeamHolder
+{
+    public static string TeamName;
+    public static BigInteger acceptableRosters;
+    public static BigInteger totalRosters;
+    public static List<TeamAndRate> teamSuccessRates = new List<TeamAndRate>();
+}
+
 public readonly record struct SidelineConfig(
     bool Apothecary,
     int Rerolls,
@@ -548,7 +556,7 @@ public class Roster
         // First: is this player-only shell actually legal?
         if (!checkIfValid())
         {
-            // If you ever want to log invalid ones, do it here.
+           //discard invalid player shells.
             return;
         }
 
@@ -758,11 +766,4 @@ public static class TestFunctions
         BigInteger denominator = LazyFactorial(sample) * LazyFactorial(objects - 1);
         return numerator / denominator;
     }
-}
-public static class TeamHolder
-{
-    public static string TeamName;
-    public static BigInteger acceptableRosters;
-    public static BigInteger totalRosters;
-    public static List<TeamAndRate> teamSuccessRates = new List<TeamAndRate>();
 }
