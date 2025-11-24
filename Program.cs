@@ -575,6 +575,8 @@ public class Roster
         Console.WriteLine($"Leftover cash before sideline staff: {leftoverCash}");
         Console.WriteLine();
 
+
+        //I'm going to need to rewrite this. This should be a very nested for loop that points to a function. This is not what I have.
         // If for some weird reason printed cost already overshoots the budget,
         // don't try to enumerate staff for this roster.
         if (leftoverCash < 0)
