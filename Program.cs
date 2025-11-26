@@ -579,6 +579,18 @@ public class Roster
         //I'm going to need to rewrite this. This should be a very nested for loop that points to a function. This is not what I have.
         // If for some weird reason printed cost already overshoots the budget,
         // don't try to enumerate staff for this roster.
+        //loop goal
+        //from 0-6: get count, keep count as coach param
+        //from 0-6: get count, keep count as cheer param
+        //from 0-2: get count, keep count as dedicated fan param
+        //from 0-9: get count, keep count as reroll param
+        //check if team can take apothecary.
+        //if so:
+        //from 0-1: get count, keep count as apothecary param
+        //else:
+        //apothecary param is 0
+        //this is the center of the loop
+        //call sideline function with above params
         if (leftoverCash < 0)
         {
             Console.WriteLine("Warning: roster cost exceeds starting budget based on printed cost; skipping sideline staff enumeration.");
