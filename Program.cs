@@ -591,6 +591,7 @@ public class Roster
         //apothecary param is 0
         //this is the center of the loop
         //call sideline function with above params
+
         if (leftoverCash < 0)
         {
             Console.WriteLine("Warning: roster cost exceeds starting budget based on printed cost; skipping sideline staff enumeration.");
@@ -631,6 +632,10 @@ public class Roster
         Console.WriteLine(); // blank line separating rosters
     }
 
+    public string SideLineStaff(int budget, int coaches, int cheerleaders, int rerolls, int dedFans, int apo, Team currTeam)
+    {
+
+    }
     /*public void ShowVerifiedSevensRoster()
     {
         if (checkIfSevensValid())
