@@ -634,7 +634,33 @@ public class Roster
 
     public string SideLineStaff(int budget, int coaches, int cheerleaders, int rerolls, int dedFans, int apo, Team currTeam)
     {
-
+        int total;
+        if (coaches > 0)
+        {
+            string coachCount = $"{coaches} Assistant coaches.";
+        }
+        total += coaches * 10000;
+        if (cheerleaders > 0)
+        {
+            string cheerCount = $"{cheerleaders} Cheerleaders.";
+        }
+        total += cheerleaders * 10000;
+        if (rerolls > 0)
+        {
+            string rerollCount = $"{rerolls} Rerolls."
+        }
+        total += rerolls * currTeam.rerollValue;
+        if (apo = 1)
+        {
+            string hasApo = "Apothecary";
+        }
+        total += apo * 50000;
+        
+        if (dedFans > 0) { string dedicatedFans = $"{dedFans} additional dedicated fans"};
+        total += dedFans * 5000;
+        if total <= budget{
+            return $"{rerolls} Rerolls. \n {apoth} Apothecary. {coaches} Assistant Coaches. \n {cheerleaders} Cheerleaders. \n {dedFans} Dedicated Fans. \n "
+        }
     }
     /*public void ShowVerifiedSevensRoster()
     {
