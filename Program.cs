@@ -635,6 +635,9 @@ public class Roster
     public string SideLineStaff(int budget, int coaches, int cheerleaders, int rerolls, int dedFans, int apo, Team currTeam)
     {
         int total;
+        string rerollCont = "";
+        string coachCount = "";
+        string cheerCount = "";
         if (coaches > 0)
         {
             string coachCount = $"{coaches} Assistant coaches.";
@@ -659,7 +662,15 @@ public class Roster
         if (dedFans > 0) { string dedicatedFans = $"{dedFans} additional dedicated fans"};
         total += dedFans * 5000;
         if total <= budget{
-            return $"{rerolls} Rerolls. \n {apoth} Apothecary. {coaches} Assistant Coaches. \n {cheerleaders} Cheerleaders. \n {dedFans} Dedicated Fans. \n "
+            string result = "";
+            if (rerollCount != "")
+            {
+                result.Append(rerollCount);
+            }
+            if(coachCount != "")
+            {
+                result.Append(coachCount);
+            }
         }
     }
     /*public void ShowVerifiedSevensRoster()
