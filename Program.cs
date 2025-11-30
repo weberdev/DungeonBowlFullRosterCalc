@@ -638,28 +638,29 @@ public class Roster
         string rerollCont = "";
         string coachCount = "";
         string cheerCount = "";
+        string dFans = ""
         if (coaches > 0)
         {
-            string coachCount = $"{coaches} Assistant coaches.";
+            string coachCount = $"{coaches} Assistant coaches.\n";
         }
         total += coaches * 10000;
         if (cheerleaders > 0)
         {
-            string cheerCount = $"{cheerleaders} Cheerleaders.";
+            string cheerCount = $"{cheerleaders} Cheerleaders.\n";
         }
         total += cheerleaders * 10000;
         if (rerolls > 0)
         {
-            string rerollCount = $"{rerolls} Rerolls."
+            string rerollCount = $"{rerolls} Rerolls.\n"
         }
         total += rerolls * currTeam.rerollValue;
         if (apo = 1)
         {
-            string hasApo = "Apothecary";
+            string hasApo = "Apothecary.\n";
         }
         total += apo * 50000;
         
-        if (dedFans > 0) { string dedicatedFans = $"{dedFans} additional dedicated fans"};
+        if (dedFans > 0) { dFans = $"{dedFans} additional dedicated fans.\n"};
         total += dedFans * 5000;
         if total <= budget{
             string result = "";
@@ -667,10 +668,19 @@ public class Roster
             {
                 result.Append(rerollCount);
             }
+            if(apo = 1)
+            {
+                result.Append("Apothecary. \n")
+            }
             if(coachCount != "")
             {
                 result.Append(coachCount);
             }
+            if (cheerCount!= "")
+            {
+                result.Append(cheerCount);
+            }
+            if(apo = 1)
         }
     }
     /*public void ShowVerifiedSevensRoster()
