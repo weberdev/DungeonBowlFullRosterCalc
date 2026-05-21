@@ -713,6 +713,22 @@ namespace TeamDefinitions
             TombKings.positions.Add(TKBigGuys);
 
             Team HighElves = new Team("High Elves", 50000, true);
+            Position HELinos = new Position("Lineman", 16);
+            Player HighElfLineman = new Player("High Elf Lineman", 65000);
+            HELinos.players.Add(HighElfLineman);
+            HighElves.positions.Add(HELinos);
+            Player HEThrower = new Player("High Elf Thrower", 100000);
+            Position HEThrowers = new Position("Thrower", 2);
+            HEThrowers.players.Add(HEThrower);
+            HighElves.positions.Add(HEThrowers);
+            Player HECatcher = new Player("High Elf Catcher", 90000);
+            Position HECatchers = new Position("Catcher", 2);
+            HECatchers.players.Add(HECatcher);
+            HighElves.positions.Add(HECatchers);
+            Player HEBlitzer = new Player("High Elf Blitzer", 100000);
+            Position HEBlitzers = new Position("Blitzer", 2);
+            HEBlitzers.players.Add(HEBlitzer);
+            HighElves.positions.Add(HEBlitzers);
             return Teams;
         }
     }
