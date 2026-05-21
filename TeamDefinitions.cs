@@ -711,6 +711,8 @@ namespace TeamDefinitions
             Position TKBigGuys = new Position("Big Guys", 4);
             TKBigGuys.players.Add(TombGuardian);
             TombKings.positions.Add(TKBigGuys);
+
+            Team HighElves = new Team("High Elves", 50000, true);
             return Teams;
         }
     }
